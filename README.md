@@ -10,6 +10,10 @@ Clone this template to start new projects with zero setup. See [docs/PHILOSOPHY.
 
 ## Quick start
 
+### 0. Clone the repo
+
+Clone this repo (or use your GitHub/Gitea "Use template") before the steps below.
+
 ### 1. Copy env and fill Supabase (required for auth)
 
 ```bash
@@ -19,8 +23,9 @@ cp .env.example .env
 
 ### 2. Run with Docker (easiest — both frontend and backend)
 
+Ensure `.env` is set from step 1, then:
+
 ```bash
-cp .env.example .env
 docker-compose up --build
 ```
 

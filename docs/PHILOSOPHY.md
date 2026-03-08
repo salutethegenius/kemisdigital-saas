@@ -31,3 +31,11 @@ Default to **“good enough”** choices that remove decision fatigue. Don’t c
 - README with env vars and run steps
 
 **Start new projects by cloning this repo.** Then customize per product.
+
+## Recommended add-ons
+
+These are not included by default but are vetted choices when you need them:
+
+| Category  | Library | Notes |
+|-----------|---------|-------|
+| Animation | [react-spring](https://www.react-spring.dev/) | Spring-based UI animations for dashboard cards, modals, and page transitions. Install with `npm i @react-spring/web`. |
