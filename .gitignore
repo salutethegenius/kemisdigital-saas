@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Env (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Build / Next
+.next/
+out/
+standalone/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# Misc
+*.egg-info/
+dist/
+build/

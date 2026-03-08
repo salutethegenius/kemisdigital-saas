@@ -1,0 +1,11 @@
+---
+description: Preferred stack for new features and projects (Verity Application Framework)
+globs:
+alwaysApply: true
+---
+
+# Golden defaults
+
+Preferred stack: Next.js + TypeScript + Tailwind for frontend. FastAPI for backend services. Supabase for auth, database, and storage. Use Docker for deployment. Deviate only if project requirements demand it.
+
+See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) for full rationale and template contents.
