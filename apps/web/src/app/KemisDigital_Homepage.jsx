@@ -165,33 +165,11 @@ function Nav() {
 }
 
 /* ─── Hero Product Mockup ────────────────────────────────────────────────────── */
-const HERO_DASHBOARDS = [
-  {
-    src: "/screencapture-urbannassaurides-admin-2026-03-11-11_37_32.png",
-    alt: "Urban Nassau admin dashboard preview",
-  },
-  {
-    src: "/screencapture-localsquares-vercel-app-me-2026-03-11-11_40_16.png",
-    alt: "Localsquares customer dashboard preview",
-  },
-  {
+function ProductMockup() {
+  const current = {
     src: "/screencapture-krmdesk-dashboard-2026-03-11-11_38_45.png",
     alt: "KRM relationship management dashboard preview",
-  },
-];
-
-function ProductMockup() {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (HERO_DASHBOARDS.length <= 1) return;
-    const id = setInterval(() => {
-      setIndex((prev) => (prev + 1) % HERO_DASHBOARDS.length);
-    }, 3500);
-    return () => clearInterval(id);
-  }, []);
-
-  const current = HERO_DASHBOARDS[index];
+  };
 
   return (
     <div
@@ -200,16 +178,16 @@ function ProductMockup() {
         borderRadius: "16px",
         border: "1px solid var(--border)",
         boxShadow:
-          "0 32px 80px rgba(10,22,40,0.14), 0 8px 24px rgba(10,22,40,0.06)",
+          "0 28px 70px rgba(15,23,42,0.12), 0 8px 24px rgba(15,23,42,0.06)",
         overflow: "hidden",
         width: "100%",
-        maxWidth: "520px",
+        maxWidth: "620px",
       }}
     >
       <div
         style={{
-          background: "var(--navy)",
-          padding: "12px 16px",
+          background: "#F9FAFB",
+          padding: "10px 16px",
           display: "flex",
           alignItems: "center",
           gap: "8px",
@@ -224,11 +202,11 @@ function ProductMockup() {
         <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
           <div
             style={{
-              background: "rgba(255,255,255,0.1)",
+              background: "white",
               borderRadius: "5px",
               padding: "3px 12px",
               fontSize: "11px",
-              color: "rgba(255,255,255,0.5)",
+              color: "var(--text-mute)",
               fontFamily: "var(--mono)",
             }}
           >
@@ -240,7 +218,7 @@ function ProductMockup() {
       <div
         style={{
           position: "relative",
-          background: "var(--navy)",
+          background: "#F3F4F6",
           padding: "16px",
         }}
       >
@@ -248,19 +226,19 @@ function ProductMockup() {
           style={{
             borderRadius: "14px",
             overflow: "hidden",
-            border: "1px solid rgba(15,32,64,0.8)",
+            border: "1px solid rgba(148,163,184,0.45)",
             boxShadow:
-              "0 22px 60px rgba(10,22,40,0.7), 0 10px 26px rgba(0,0,0,0.45)",
+              "0 18px 55px rgba(15,23,42,0.16), 0 8px 20px rgba(15,23,42,0.08)",
           }}
         >
           <div
             style={{
               position: "relative",
               width: "100%",
-              maxHeight: "420px",
-              minHeight: "260px",
+              maxHeight: "460px",
+              minHeight: "280px",
               background:
-                "radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 55%), #020617",
+                "radial-gradient(circle at top, rgba(15,23,42,0.04), transparent 55%), #FFFFFF",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -300,35 +278,13 @@ function ProductMockup() {
           <div
             style={{
               fontSize: "11.5px",
-              color: "rgba(255,255,255,0.72)",
+              color: "var(--text-mid)",
               fontFamily: "var(--mono)",
             }}
           >
             {current.alt}
           </div>
-          <div style={{ display: "flex", gap: "6px" }}>
-            {HERO_DASHBOARDS.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Show dashboard ${i + 1}`}
-                onClick={() => setIndex(i)}
-                style={{
-                  width: i === index ? 18 : 8,
-                  height: 8,
-                  borderRadius: 999,
-                  border: "none",
-                  padding: 0,
-                  cursor: "pointer",
-                  background:
-                    i === index
-                      ? "rgba(59,130,246,0.95)"
-                      : "rgba(148,163,184,0.6)",
-                  transition: "all 0.18s ease-out",
-                }}
-              />
-            ))}
-          </div>
+          <div />
         </div>
       </div>
     </div>
