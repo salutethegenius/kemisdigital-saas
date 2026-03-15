@@ -1,93 +1,88 @@
-# Golden Starter (Verity Application Framework)
+## KemisDigital SaaS
 
-Clone this template to start new projects with zero setup. See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) for philosophy and stack defaults.
+Marketing site and platform stack for KemisDigital.
 
-## Prerequisites
+The repo started from the Golden Starter template but is now a dedicated project for `kemisdigital.com`.
 
-- Node 20+
-- Python 3.11+
-- Optional: Docker (for one-command run)
+### Tech stack
 
-## Quick start
+- **Frontend:** Next.js App Router (TypeScript), Framer Motion
+- **Backend services:** FastAPI (apps/api) – currently mostly template/example endpoints
+- **Auth / data:** Supabase
+- **Infra:** Vercel (web), Docker / Railway or local Docker for API
 
-### 0. Clone the repo
+### Key features
 
-Clone this repo (or use your GitHub/Gitea "Use template") before the steps below.
+- High‑touch marketing homepage for KemisDigital with:
+  - Animated hero and dashboard mockup
+  - Ecosystem section showcasing active products (KemisPay, KRM Desk, GB Rewards, etc.)
+  - Case studies and process (“How we work”)
+  - Mobile/tablet responsive layout with hamburger nav
+- **Strategy session booking form**:
+  - Rich intake form with checkboxes and summary sidebar
+  - Server action writes to Supabase `strategy_sessions` table
+  - Email notification helper wired to `BOOKING_NOTIFICATION_EMAIL`
+- **SEO & PWA**:
+  - Metadata, Open Graph / Twitter cards
+  - `sitemap.xml`, `robots.txt`, `manifest.json`
+  - Installable on mobile with app icons
+- **Privacy & footer**:
+  - `/privacy` page describing data handling for form submissions
+  - Footer links to ecosystem products and contact email
 
-### 1. Copy env and fill Supabase (required for auth)
+### Local setup
 
-```bash
-cp .env.example .env
-# Edit .env: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY from your Supabase project (Connect > Next.js)
+1. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+2. **Env vars**
+
+   ```bash
+   cp .env.example .env
+   # Fill in:
+   # NEXT_PUBLIC_SUPABASE_URL
+   # NEXT_PUBLIC_SUPABASE_ANON_KEY
+   # BOOKING_NOTIFICATION_EMAIL
+   ```
+
+3. **Run web app**
+
+   ```bash
+   cd apps/web
+   npm install
+   npm run dev
+   # http://localhost:3000
+   ```
+
+4. **(Optional) Run API**
+
+   The FastAPI service under `apps/api` is still mostly template code from Golden Starter.  
+   Run it only if you need those endpoints:
+
+   ```bash
+   cd apps/api
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   uvicorn app.main:app --reload --port 8000
+   ```
+
+### Deploy
+
+- **Vercel (web):**
+  - Project root: `apps/web`
+  - Env vars: copy from `.env.example` (at least `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `BOOKING_NOTIFICATION_EMAIL`)
+- **API:** deploy `apps/api` separately (Railway, Docker, or any VM) if/when you start using it.
+
+### Repo structure
+
+```text
+apps/web     — KemisDigital marketing site (Next.js, Framer Motion, Supabase)
+apps/api     — FastAPI backend (currently template / optional)
+packages/    — Shared config and utilities
+docs/        — PHILOSOPHY.md and internal standards
 ```
 
-### 2. Run with Docker (easiest — both frontend and backend)
-
-Ensure `.env` is set from step 1, then:
-
-```bash
-docker-compose up --build
-```
-
-- Frontend: http://localhost:3000 (or next available port)  
-- API: http://localhost:8000  
-- Health: http://localhost:8000/health  
-
-You can use placeholder Supabase values to run; auth will fail until you set a real project.
-
-### 3. Run locally (dev)
-
-**Terminal 1 — web**
-
-```bash
-cd apps/web
-npm install
-npm run dev
-```
-
-**Terminal 2 — API**
-
-```bash
-cd apps/api
-python -m venv .venv
-source .venv/bin/activate   # or .venv\Scripts\activate on Windows
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
-```
-
-## Environment variables
-
-| Variable | Service | Required | Notes |
-|----------|---------|----------|-------|
-| `NEXT_PUBLIC_SUPABASE_URL` | web | Yes (for auth) | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | web | Yes (for auth) | Supabase anon/publishable key |
-| `NEXT_PUBLIC_API_URL` | web | No | Defaults to `http://localhost:8000` |
-| `CORS_ORIGINS` | api | No | Comma-separated origins. Defaults to `http://localhost:3000,http://localhost:3001` |
-| `OPENAI_API_KEY` / `LLM_API_KEY` | api | Optional | For AI features |
-| `QDRANT_URL` / `QDRANT_API_KEY` | api | Optional | For vector search (see docker-compose commented section) |
-
-## Notes
-
-- Protected routes use Next.js `proxy.ts` (`apps/web/src/proxy.ts`) to refresh Supabase auth and guard `/dashboard`.
-- `src/lib/api.ts` includes Zod-validated API response examples with explicit HTTP error handling.
-
-## Deploy
-
-- **Vercel**: Connect repo, set root to `apps/web`, add env vars from `.env.example`.
-- **Railway**: Add two services (or one); build from `apps/api` and optionally `apps/web`; set env from `.env.example`.
-- **Docker**: Build `apps/web` and `apps/api` images and run on any VM; use the same env vars.
-
-## Repo structure
-
-```
-apps/web     — Next.js (TypeScript, Tailwind, Zod, Supabase auth)
-apps/api     — FastAPI (app/, health, example route, optional AI stubs)
-packages/    — Shared code (config, ui, utils) — optional helpers included
-docs/        — PHILOSOPHY.md and standards
-```
-
-## Starting a new project from this template
-
-1. Clone this repo (or use your Gitea/GitHub “use template”).
-2. `rm -rf .git && git init` and push to your new repo.
-3. Update app name, env, and features. Keep the architecture.
