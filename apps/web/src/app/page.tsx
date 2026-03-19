@@ -1,7 +1,5 @@
-"use client";
-
-import KemisDigital from "./KemisDigital_Homepage";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <KemisDigital />;
+  redirect("/v2");
 }

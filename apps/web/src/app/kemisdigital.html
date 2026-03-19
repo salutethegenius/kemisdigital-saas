@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KemisDigital — The Software Platform Built for Bahamian Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07080A;
+  --bg-2: #0D0F12;
+  --bg-3: #121518;
+  --ink: #EDECEA;
+  --ink-2: #8A8884;
+  --ink-3: #444240;
+  --orange: #FF4500;
+  --blue: #0047FF;
+  --purple: #6200FF;
+  --green: #00C896;
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,69,0,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.18s ease, width 0.2s ease, height 0.2s ease;
+  transform: translate(-50%, -50%);
+}
+body:hover .cursor-ring { opacity: 1; }
+
+/* PRELOADER */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+  animation: preloaderOut 0.6s ease 2.4s forwards;
+}
+@keyframes preloaderOut {
+  to { opacity: 0; pointer-events: none; }
+}
+.pre-mark {
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.3s forwards;
+}
+.pre-bar-wrap {
+  width: 200px;
+  height: 1px;
+  background: var(--border-strong);
+  opacity: 0;
+  animation: fadeUp 0.4s ease 0.7s forwards;
+}
+.pre-bar {
+  height: 1px;
+  background: var(--orange);
+  width: 0%;
+  animation: loadBar 1.4s ease 0.9s forwards;
+}
+@keyframes loadBar { to { width: 100%; } }
+.pre-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: 0;
+  animation: fadeUp 0.4s ease 0.9s forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* GRID OVERLAY */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,8,10,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  animation: fadeUp 0.5s ease 2.6s forwards;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  height: 32px;
+  width: auto;
+}
+.nav-logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+}
+.nav-logo-text span { color: var(--orange); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--orange);
+  border: none;
+  padding: 10px 22px;
+  cursor: none;
+  transition: background 0.2s, transform 0.1s;
+}
+.nav-cta:hover { background: #ff5c1a; transform: scale(1.02); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-geo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 2.8s forwards;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--orange);
+}
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(72px, 10vw, 130px);
+  line-height: 0.88;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 0;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 3s forwards;
+}
+.hero-h1 .accent-o { color: var(--orange); }
+.hero-h1 .accent-b { color: var(--blue); }
+.hero-h1 .accent-dim { color: var(--ink-3); }
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-top: 32px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 3.2s forwards;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 44px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 3.4s forwards;
+}
+.btn-primary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  border: 2px solid var(--orange);
+  padding: 14px 32px;
+  cursor: none;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: transparent; color: var(--orange); }
+.btn-ghost {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--border-strong);
+  padding: 14px 32px;
+  cursor: none;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--ink); }
+.hero-stats {
+  display: flex;
+  gap: 0;
+  margin-top: 80px;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 3.6s forwards;
+}
+.hero-stat {
+  flex: 1;
+  padding-right: 40px;
+  border-right: 1px solid var(--border);
+  margin-right: 40px;
+}
+.hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.hero-stat-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.hero-stat-val.o { color: var(--orange); }
+.hero-stat-val.b { color: var(--blue); }
+.hero-stat-val.p { color: var(--purple); }
+.hero-stat-val.g { color: var(--green); }
+.hero-stat-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* SECTION COMMON */
+section { position: relative; z-index: 1; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--orange);
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.92;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+
+/* TENSION */
+.tension {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.tension-statement {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--ink-2);
+}
+.tension-statement strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+.tension-statement em {
+  color: var(--orange);
+  font-style: normal;
+}
+.tension-right { display: flex; flex-direction: column; gap: 24px; }
+.tension-point {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  transition: border-color 0.2s;
+}
+.tension-point:hover { border-color: var(--border-strong); }
+.tension-point-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.tension-point-text {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.tension-point-text strong { color: var(--ink); font-weight: 500; }
+
+/* ECOSYSTEM */
+.ecosystem {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+}
+.ecosystem-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 80px;
+}
+.ecosystem-desc {
+  font-size: 16px;
+  color: var(--ink-2);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.ecosystem-map {
+  position: relative;
+  height: 520px;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.eco-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* PRODUCTS GRID */
+.products {
+  padding: 80px 48px;
+  border-top: 1px solid var(--border);
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 60px;
+}
+.product-card {
+  background: var(--bg);
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+  cursor: none;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.product-card:hover { background: var(--bg-2); }
+.product-card:hover::before { transform: scaleX(1); }
+.product-card.c-o::before { background: var(--orange); }
+.product-card.c-b::before { background: var(--blue); }
+.product-card.c-p::before { background: var(--purple); }
+.product-card.c-g::before { background: var(--green); }
+.product-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 24px;
+}
+.product-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.product-cat {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.product-cat.o { color: var(--orange); }
+.product-cat.b { color: var(--blue); }
+.product-cat.p { color: var(--purple); }
+.product-cat.g { color: var(--green); }
+.product-desc {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.product-link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.product-card:hover .product-link { color: var(--ink); }
+.product-num {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--border);
+  letter-spacing: -3px;
+  transition: color 0.25s;
+}
+.product-card:hover .product-num { color: rgba(255,255,255,0.04); }
+
+/* CAPABILITIES */
+.capabilities {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 60px;
+}
+.cap-card {
+  background: var(--bg-2);
+  padding: 48px 40px;
+}
+.cap-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+}
+.cap-icon { margin-bottom: 24px; }
+.cap-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+.cap-desc {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.cap-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.cap-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+}
+
+/* PROCESS */
+.process {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+}
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 80px;
+  border: 1px solid var(--border);
+}
+.process-step {
+  padding: 48px 36px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.process-step:last-child { border-right: none; }
+.process-step-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+}
+.ps1 .process-step-num { color: var(--orange); }
+.ps2 .process-step-num { color: var(--blue); }
+.ps3 .process-step-num { color: var(--purple); }
+.ps4 .process-step-num { color: var(--green); }
+.process-step-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.process-step-desc {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  font-weight: 300;
+}
+.process-arrow {
+  position: absolute;
+  top: 50%; right: -12px;
+  transform: translateY(-50%);
+  width: 24px; height: 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-size: 10px;
+  color: var(--ink-3);
+}
+.process-step:last-child .process-arrow { display: none; }
+
+/* BUILT */
+.built {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.built-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 60px;
+}
+.built-card {
+  background: var(--bg-2);
+  padding: 40px 36px;
+}
+.built-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.built-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.built-desc {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.built-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.built-stat-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+/* CTA */
+.cta-section {
+  padding: 160px 48px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-geo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.cta-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+.cta-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 8vw, 100px);
+  line-height: 0.9;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 2;
+}
+.cta-title span { color: var(--orange); }
+.cta-sub {
+  font-size: 16px;
+  color: var(--ink-2);
+  font-weight: 300;
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 2;
+}
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+/* FOOTER */
+footer {
+  padding: 60px 48px 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.footer-brand-name span { color: var(--orange); }
+.footer-tagline {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 240px;
+}
+.footer-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--ink); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ink-3);
+}
+.footer-legal {
+  display: flex;
+  gap: 24px;
+}
+.footer-legal a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-legal a:hover { color: var(--ink-2); }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-h1 { font-size: 64px; letter-spacing: -2px; }
+  .hero-stats { flex-direction: column; gap: 24px; }
+  .hero-stat { border-right: none; margin-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+  .tension { grid-template-columns: 1fr; gap: 48px; padding: 80px 20px; }
+  .ecosystem { padding: 80px 20px; }
+  .ecosystem-header { grid-template-columns: 1fr; gap: 32px; }
+  .ecosystem-map { height: 360px; }
+  .products { padding: 60px 20px; }
+  .products-grid { grid-template-columns: 1fr; }
+  .capabilities { padding: 80px 20px; }
+  .capabilities-grid { grid-template-columns: 1fr; }
+  .process { padding: 80px 20px; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .built { padding: 80px 20px; }
+  .built-grid { grid-template-columns: 1fr; }
+  .cta-section { padding: 100px 20px; }
+  footer { padding: 40px 20px 30px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 16px; }
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+  .btn-primary, .btn-ghost, .nav-cta { cursor: pointer; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-mark">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="8" fill="#07080A"/>
+      <rect x="8" y="10" width="28" height="6" rx="2.5" fill="#FF4500"/>
+      <rect x="8" y="20" width="22" height="6" rx="2.5" fill="#0047FF"/>
+      <rect x="8" y="30" width="16" height="6" rx="2.5" fill="#FF4500" opacity="0.35"/>
+    </svg>
+  </div>
+  <div class="pre-bar-wrap">
+    <div class="pre-bar"></div>
+  </div>
+  <div class="pre-label">Initialising KemisDigital</div>
+</div>
+
+<div class="grid-overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg class="nav-logo-mark" width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0"  y="4"  width="36" height="9"  rx="2.5" fill="#FF4500"/>
+      <rect x="0"  y="18" width="28" height="9"  rx="2.5" fill="#0047FF"/>
+      <rect x="0"  y="32" width="18" height="9"  rx="2.5" fill="#FF4500" opacity="0.35"/>
+      <text x="50" y="30" font-family="'Barlow Condensed', sans-serif" font-size="24" font-weight="800" fill="#EDECEA" letter-spacing="0.5">
+        Kemis<tspan fill="#FF4500">Digital</tspan>
+      </text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#built">Work</a></li>
+  </ul>
+  <a href="#ready-to-build" class="nav-cta">Start Building →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <svg class="hero-geo" viewBox="0 0 1400 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="900" y1="0" x2="1400" y2="500" stroke="#FF4500" stroke-width="1" opacity="0.08"/>
+    <line x1="1000" y1="0" x2="1400" y2="350" stroke="#0047FF" stroke-width="1" opacity="0.06"/>
+    <line x1="1100" y1="0" x2="1400" y2="700" stroke="#6200FF" stroke-width="0.5" opacity="0.06"/>
+    <line x1="700" y1="0" x2="1400" y2="800" stroke="#EDECEA" stroke-width="0.5" opacity="0.03"/>
+    <rect x="1100" y="100" width="120" height="120" fill="none" stroke="#FF4500" stroke-width="1" opacity="0.1"/>
+    <rect x="1240" y="300" width="60" height="60" fill="none" stroke="#0047FF" stroke-width="1" opacity="0.08"/>
+    <circle cx="1300" cy="600" r="160" fill="none" stroke="#6200FF" stroke-width="1" opacity="0.06"/>
+    <circle cx="1150" cy="150" r="60" fill="none" stroke="#FF4500" stroke-width="0.5" opacity="0.1"/>
+    <polygon points="1050,580 1090,520 1130,580" fill="#0047FF" opacity="0.04"/>
+    <line x1="0" y1="600" x2="300" y2="800" stroke="#EDECEA" stroke-width="0.5" opacity="0.04"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">KGC Platform — Nassau, The Bahamas</div>
+    <h1 class="hero-h1">
+      The <span class="accent-o">Software</span><br>
+      Platform<br>
+      Built for <span class="accent-b">Bahamian</span><br>
+      <span class="accent-dim">Business.</span>
+    </h1>
+    <p class="hero-sub">We design and build digital platforms that automate operations, connect your systems, and give companies room to grow. From payments to portals — we build it all.</p>
+    <div class="hero-actions">
+      <a href="#capabilities" class="btn-primary">Explore the Platform →</a>
+      <a href="#built" class="btn-ghost">See Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val o">20+</div>
+        <div class="hero-stat-label">Years in The Bahamas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val b">9</div>
+        <div class="hero-stat-label">Active Products</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val p">70K+</div>
+        <div class="hero-stat-label">Email Subscribers Reached</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val g">100%</div>
+        <div class="hero-stat-label">Built for the Caribbean</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TENSION -->
+<section class="tension reveal" id="tension">
+  <div class="tension-left">
+    <div class="section-label">The Problem</div>
+    <p class="tension-statement">
+      Most Bahamian businesses are running on <em>systems that don't talk</em> to each other.<br><br>
+      <strong>We built the layer underneath.</strong>
+    </p>
+  </div>
+  <div class="tension-right">
+    <div class="tension-point">
+      <span class="tension-point-num">01</span>
+      <p class="tension-point-text"><strong>Disconnected tools.</strong> Your payment processor doesn't talk to your CRM. Your email platform doesn't talk to your POS. Every day data falls through the cracks.</p>
+    </div>
+    <div class="tension-point">
+      <span class="tension-point-num">02</span>
+      <p class="tension-point-text"><strong>Foreign platforms.</strong> Tools built for Miami don't account for Bahamian compliance, Caribbean payment rails, or local business rhythms.</p>
+    </div>
+    <div class="tension-point">
+      <span class="tension-point-num">03</span>
+      <p class="tension-point-text"><strong>No room to grow.</strong> Most local businesses hit a ceiling where the software stops scaling with them. We build systems that grow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM MAP -->
+<section class="ecosystem reveal" id="products">
+  <div class="ecosystem-header">
+    <div>
+      <div class="section-label">The KGC Ecosystem</div>
+      <h2 class="section-title">One Platform.<br>Nine Products.</h2>
+    </div>
+    <p class="ecosystem-desc">Every product in the KGC ecosystem is connected. KemisPay feeds KRM. KemisEMAIL connects to every product. VerityOS sits across all of them. It's not a suite — it's a system.</p>
+  </div>
+  <div class="ecosystem-map">
+    <canvas class="eco-canvas" id="ecoCanvas"></canvas>
+  </div>
+</section>
+
+<!-- PRODUCTS GRID -->
+<section class="products reveal">
+  <div class="section-label">Product Suite</div>
+  <h2 class="section-title">Everything<br>Your Business Runs On.</h2>
+  <div class="products-grid">
+
+    <div class="product-card c-o">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(255,69,0,0.08)"/>
+        <path d="M8 20H32M20 8L32 20L20 32" stroke="#FF4500" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="4" fill="#FF4500"/>
+      </svg>
+      <div class="product-name">KemisPay</div>
+      <div class="product-cat o">Payments</div>
+      <p class="product-desc">Caribbean-first payment infrastructure. Accept, move, and manage money built for the Bahamian market.</p>
+      <a href="https://kemispay.com" class="product-link" target="_blank" rel="noreferrer">Explore KemisPay →</a>
+      <div class="product-num">01</div>
+    </div>
+
+    <div class="product-card c-b">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(0,71,255,0.08)"/>
+        <rect x="8" y="12" width="24" height="16" rx="1" stroke="#0047FF" stroke-width="1.5"/>
+        <path d="M8 18H32" stroke="#0047FF" stroke-width="1.5"/>
+        <circle cx="28" cy="28" r="1.5" fill="#0047FF"/>
+      </svg>
+      <div class="product-name">VerityOS</div>
+      <div class="product-cat b">Intelligence</div>
+      <p class="product-desc">Operating system for your business data. Verification, identity, and intelligence infrastructure.</p>
+      <a href="https://verityos.net" class="product-link" target="_blank" rel="noreferrer">Explore VerityOS →</a>
+      <div class="product-num">02</div>
+    </div>
+
+    <div class="product-card c-p">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(98,0,255,0.08)"/>
+        <path d="M20 8L32 16V28L20 36L8 28V16L20 8Z" stroke="#6200FF" stroke-width="1.5"/>
+        <circle cx="20" cy="22" r="5" fill="#6200FF" opacity="0.3"/>
+      </svg>
+      <div class="product-name">LawBey</div>
+      <div class="product-cat p">Legal Tech</div>
+      <p class="product-desc">Legal services marketplace connecting Bahamians with attorneys. Document management and legal workflow.</p>
+      <a href="https://lawbey.com" class="product-link" target="_blank" rel="noreferrer">Explore LawBey →</a>
+      <div class="product-num">03</div>
+    </div>
+
+    <div class="product-card c-o">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(255,69,0,0.08)"/>
+        <rect x="10" y="28" width="8" height="10" fill="#FF4500" opacity="0.8"/>
+        <rect x="10" y="18" width="8" height="8" fill="#FF4500" opacity="0.5"/>
+        <rect x="10" y="10" width="8" height="6" fill="#FF4500" opacity="0.25"/>
+        <line x1="22" y1="6" x2="16" y2="38" stroke="#FF4500" stroke-width="1" opacity="0.4"/>
+        <text x="25" y="28" font-family="sans-serif" font-size="12" font-weight="700" fill="#FF4500">KE</text>
+      </svg>
+      <div class="product-name">KemisEMAIL</div>
+      <div class="product-cat o">Email Marketing</div>
+      <p class="product-desc">The largest verified email audience in The Bahamas. 70,000+ subscribers. Local reach at scale.</p>
+      <a href="https://kemis.email" class="product-link" target="_blank" rel="noreferrer">Explore KemisEMAIL →</a>
+      <div class="product-num">04</div>
+    </div>
+
+    <div class="product-card c-g">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(0,200,150,0.08)"/>
+        <circle cx="20" cy="18" r="7" stroke="#00C896" stroke-width="1.5"/>
+        <path d="M10 34C10 29 14 26 20 26C26 26 30 29 30 34" stroke="#00C896" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="product-name">KRM</div>
+      <div class="product-cat g">CRM</div>
+      <p class="product-desc">Kemis Relationship Management. Built for Caribbean businesses. Simpler than Salesforce. More relevant than HubSpot.</p>
+      <a href="https://krmdesk.com" class="product-link" target="_blank" rel="noreferrer">Explore KRM →</a>
+      <div class="product-num">05</div>
+    </div>
+
+    <div class="product-card c-b">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(0,71,255,0.08)"/>
+        <rect x="9" y="9" width="22" height="22" rx="2" stroke="#0047FF" stroke-width="1.5"/>
+        <path d="M14 20H26M20 14V26" stroke="#0047FF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="product-name">Anchor</div>
+      <div class="product-cat b">Identity</div>
+      <p class="product-desc">Digital identity and document wallet. Your credentials, verified and portable — inspired by Apple's digital ID.</p>
+      <a href="https://anchor.verityos.net" class="product-link" target="_blank" rel="noreferrer">Explore Anchor →</a>
+      <div class="product-num">06</div>
+    </div>
+
+    <div class="product-card c-p">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(98,0,255,0.08)"/>
+        <circle cx="20" cy="20" r="10" stroke="#6200FF" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="3" fill="#6200FF"/>
+        <path d="M20 10V8M20 32V30M10 20H8M32 20H30" stroke="#6200FF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="product-name">Voice of The Bahamas</div>
+      <div class="product-cat p">Civic Media</div>
+      <p class="product-desc">Community voice platform amplifying Bahamian stories, civic participation, and public discourse.</p>
+      <a href="https://voiceofthebahamas.com" class="product-link" target="_blank" rel="noreferrer">Explore VOTB →</a>
+      <div class="product-num">07</div>
+    </div>
+
+    <div class="product-card c-o">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(255,69,0,0.08)"/>
+        <path d="M20 8L24 16L32 17L26 23L28 32L20 28L12 32L14 23L8 17L16 16L20 8Z" stroke="#FF4500" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <div class="product-name">Freeport Squares</div>
+      <div class="product-cat o">Grand Bahama</div>
+      <p class="product-desc">Hyperlocal commerce and community platform for Grand Bahama Island. Discover, shop, connect.</p>
+      <a href="https://freeportsquares.com" class="product-link" target="_blank" rel="noreferrer">Explore FPS →</a>
+      <div class="product-num">08</div>
+    </div>
+
+    <div class="product-card c-g">
+      <svg class="product-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" fill="rgba(0,200,150,0.08)"/>
+        <path d="M8 24L14 12L20 20L26 10L32 24H8Z" stroke="#00C896" stroke-width="1.5" stroke-linejoin="round"/>
+        <rect x="8" y="24" width="24" height="6" fill="#00C896" opacity="0.15"/>
+      </svg>
+      <div class="product-name">Grand Bahama Rewards</div>
+      <div class="product-cat g">Loyalty</div>
+      <p class="product-desc">Island-wide loyalty program connecting Grand Bahama merchants and shoppers through a unified rewards platform.</p>
+      <a href="https://gbrewards.com" class="product-link" target="_blank" rel="noreferrer">Explore GBR →</a>
+      <div class="product-num">09</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="capabilities reveal" id="capabilities">
+  <div class="section-label">What We Build</div>
+  <h2 class="section-title">From Payments<br>to Portals.</h2>
+  <div class="capabilities-grid">
+    <div class="cap-card">
+      <div class="cap-num">— 01</div>
+      <svg class="cap-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path d="M4 18H32M18 4L32 18L18 32" stroke="#FF4500" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <h3 class="cap-title">Payment Infrastructure</h3>
+      <p class="cap-desc">Caribbean-first payment rails, merchant tooling, and financial automation. Built for the realities of Bahamian commerce — not adapted from elsewhere.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">KemisPay</span>
+        <span class="cap-tag">Merchant Portals</span>
+        <span class="cap-tag">Invoicing</span>
+        <span class="cap-tag">Reconciliation</span>
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-num">— 02</div>
+      <svg class="cap-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <rect x="4" y="8" width="28" height="20" rx="2" stroke="#0047FF" stroke-width="1.5"/>
+        <path d="M4 14H32" stroke="#0047FF" stroke-width="1.5"/>
+        <circle cx="28" cy="24" r="2" fill="#0047FF"/>
+      </svg>
+      <h3 class="cap-title">Business Portals</h3>
+      <p class="cap-desc">Custom-built web applications that automate your operations, manage your customers, and surface the data you actually need to make decisions.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">CRM</span>
+        <span class="cap-tag">Customer Portals</span>
+        <span class="cap-tag">Dashboards</span>
+        <span class="cap-tag">Automation</span>
+      </div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-num">— 03</div>
+      <svg class="cap-icon" width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="12" stroke="#6200FF" stroke-width="1.5"/>
+        <path d="M12 18L16 22L24 14" stroke="#6200FF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <h3 class="cap-title">Systems Integration</h3>
+      <p class="cap-desc">We connect your existing tools, close the data gaps, and build the middleware that makes your stack behave like a single coherent system.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">API Integration</span>
+        <span class="cap-tag">Data Pipelines</span>
+        <span class="cap-tag">Legacy Migration</span>
+        <span class="cap-tag">Webhooks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process reveal" id="process">
+  <div class="section-label">How We Work</div>
+  <h2 class="section-title">First Call<br>to Live Platform.</h2>
+  <div class="process-steps">
+    <div class="process-step ps1">
+      <div class="process-step-num">01</div>
+      <h3 class="process-step-title">Discovery</h3>
+      <p class="process-step-desc">We map your current systems, identify the gaps, and scope exactly what needs to be built. No fluff, no 60-page proposals.</p>
+      <div class="process-arrow">→</div>
+    </div>
+    <div class="process-step ps2">
+      <div class="process-step-num">02</div>
+      <h3 class="process-step-title">Architecture</h3>
+      <p class="process-step-desc">We design the system — data models, integration points, user flows — before writing a single line of code.</p>
+      <div class="process-arrow">→</div>
+    </div>
+    <div class="process-step ps3">
+      <div class="process-step-num">03</div>
+      <h3 class="process-step-title">Build</h3>
+      <p class="process-step-desc">Full-stack development in our proven Next.js/Railway stack. Weekly deploys. You see progress every step of the way.</p>
+      <div class="process-arrow">→</div>
+    </div>
+    <div class="process-step ps4">
+      <div class="process-step-num">04</div>
+      <h3 class="process-step-title">Launch + Scale</h3>
+      <p class="process-step-desc">We go live, monitor performance, and stay on as your technical partner. This isn't a handoff — it's a long-term build.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT -->
+<section class="built reveal" id="built">
+  <div class="section-label">What We've Built</div>
+  <h2 class="section-title">Deployed.<br>Running.<br>Proven.</h2>
+  <div class="built-grid">
+    <div class="built-card">
+      <span class="built-tag">Email Marketing</span>
+      <h3 class="built-title">KemisEMAIL Platform</h3>
+      <p class="built-desc">The largest verified email subscriber base in The Bahamas. Built on Sendy, enhanced with custom template systems, campaign analytics, and a Stripe-native checkout flow.</p>
+      <div class="built-stat">
+        <span class="built-stat-val" style="color:var(--orange)">70K+</span>
+        <span style="font-size:13px;color:var(--ink-3)">Verified subscribers</span>
+      </div>
+    </div>
+    <div class="built-card">
+      <span class="built-tag">Intelligence Dashboard</span>
+      <h3 class="built-title">Crime Intelligence System</h3>
+      <p class="built-desc">Palantir-style crime data visualisation platform for The Bahamas. Pure HTML5 Canvas Mercator map engine with real-time incident tracking and pattern analysis.</p>
+      <div class="built-stat">
+        <span class="built-stat-val" style="color:var(--blue)">Live</span>
+        <span style="font-size:13px;color:var(--ink-3)">Prototype deployed</span>
+      </div>
+    </div>
+    <div class="built-card">
+      <span class="built-tag">Community Commerce</span>
+      <h3 class="built-title">Freeport Squares</h3>
+      <p class="built-desc">Hyperlocal commerce platform for Grand Bahama. Dark-theme React frontend with a centralised token design system and geometric brand identity.</p>
+      <div class="built-stat">
+        <span class="built-stat-val" style="color:var(--green)">GBI</span>
+        <span style="font-size:13px;color:var(--ink-3)">Grand Bahama Island</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section reveal" id="ready-to-build">
+  <svg class="cta-geo" viewBox="0 0 1400 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="0" x2="1400" y2="600" stroke="#FF4500" stroke-width="1" opacity="0.06"/>
+    <line x1="200" y1="0" x2="1400" y2="450" stroke="#0047FF" stroke-width="1" opacity="0.05"/>
+    <circle cx="200" cy="300" r="200" fill="none" stroke="#6200FF" stroke-width="1" opacity="0.06"/>
+    <circle cx="1200" cy="200" r="150" fill="none" stroke="#FF4500" stroke-width="1" opacity="0.06"/>
+    <rect x="600" y="100" width="80" height="80" fill="none" stroke="#0047FF" stroke-width="1" opacity="0.08"/>
+    <rect x="650" y="150" width="40" height="40" fill="#6200FF" opacity="0.04"/>
+  </svg>
+  <div class="cta-eyebrow">Ready to Build</div>
+  <h2 class="cta-title">Let's Build<br>Your <span>Stack.</span></h2>
+  <p class="cta-sub">Tell us what you're trying to solve. We'll tell you exactly how to build it.</p>
+  <div class="cta-actions">
+    <a href="mailto:frontdesk@kemisdigital.com" class="btn-primary">Start the Conversation →</a>
+    <a href="#products" class="btn-ghost">Explore the Platform</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">
+        <svg class="nav-logo-mark" width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0"  y="4"  width="36" height="9"  rx="2.5" fill="#FF4500"/>
+          <rect x="0"  y="18" width="28" height="9"  rx="2.5" fill="#0047FF"/>
+          <rect x="0"  y="32" width="18" height="9"  rx="2.5" fill="#FF4500" opacity="0.35"/>
+          <text x="50" y="30" font-family="'Barlow Condensed', sans-serif" font-size="24" font-weight="800" fill="#EDECEA" letter-spacing="0.5">
+            Kemis<tspan fill="#FF4500">Digital</tspan>
+          </text>
+        </svg>
+      </div>
+      <p class="footer-tagline">The software platform built for Bahamian business. 20+ years of digital infrastructure in the Caribbean.</p>
+      <p class="footer-tagline" style="margin-top:10px;">
+        Nassau, The Bahamas · <a href="mailto:frontdesk@kemisdigital.com" style="color:var(--ink-2);text-decoration:none;">frontdesk@kemisdigital.com</a>
+      </p>
+    </div>
+    <div>
+      <div class="footer-col-title">Products</div>
+      <ul class="footer-links">
+        <li><a href="https://kemispay.com" target="_blank" rel="noreferrer">KemisPay</a></li>
+        <li><a href="https://verityos.net" target="_blank" rel="noreferrer">VerityOS</a></li>
+        <li><a href="https://kemis.email" target="_blank" rel="noreferrer">KemisEMAIL</a></li>
+        <li><a href="https://lawbey.com" target="_blank" rel="noreferrer">LawBey</a></li>
+        <li><a href="https://krmdesk.com" target="_blank" rel="noreferrer">KRM</a></li>
+        <li><a href="https://anchor.verityos.net" target="_blank" rel="noreferrer">Anchor</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Ecosystem</div>
+      <ul class="footer-links">
+        <li><a href="https://freeportsquares.com" target="_blank" rel="noreferrer">Freeport Squares</a></li>
+        <li><a href="https://gbrewards.com" target="_blank" rel="noreferrer">Grand Bahama Rewards</a></li>
+        <li><a href="https://voiceofthebahamas.com" target="_blank" rel="noreferrer">Voice of The Bahamas</a></li>
+        <li><a href="https://kemisacademy.com" target="_blank" rel="noreferrer">KemisAcademy</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="https://kemisdigital.com/#how-we-work">About KGC</a></li>
+        <li><a href="https://kemisdigital.com">The Kemis Group</a></li>
+        <li><a href="https://kemisdigital.com/#services">The Free Zone</a></li>
+        <li><a href="https://kemisdigital.com/#book-session">Contact</a></li>
+        <li><a href="https://kemisdigital.com/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 The Kemis Group of Companies. Nassau, The Bahamas.</div>
+    <div class="footer-legal">
+      <a href="https://kemisdigital.com/privacy">Privacy Policy</a>
+      <a href="https://kemisdigital.com/terms">Terms</a>
+      <a href="https://kemisdigital.com">kemisdigital.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .product-card, .tension-point').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursorRing.style.width = '48px';
+    cursorRing.style.height = '48px';
+    cursor.style.transform += ' scale(1.5)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursorRing.style.width = '32px';
+    cursorRing.style.height = '32px';
+  });
+});
+
+// Hero parallax
+const heroGeo = document.querySelector('.hero-geo');
+document.addEventListener('mousemove', e => {
+  if (!heroGeo) return;
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 12;
+  heroGeo.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Ecosystem canvas
+const canvas = document.getElementById('ecoCanvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', () => { resizeCanvas(); drawEco(); });
+
+const nodes = [
+  { id: 'KGC', label: 'KGC', sub: 'Group', x: 0.5, y: 0.5, r: 28, color: '#FF4500', core: true },
+  { id: 'KP', label: 'KemisPay', sub: 'Payments', x: 0.18, y: 0.25, r: 18, color: '#FF4500' },
+  { id: 'VO', label: 'VerityOS', sub: 'Intelligence', x: 0.82, y: 0.25, r: 18, color: '#0047FF' },
+  { id: 'LB', label: 'LawBey', sub: 'Legal Tech', x: 0.15, y: 0.65, r: 16, color: '#6200FF' },
+  { id: 'KE', label: 'KemisEMAIL', sub: 'Email', x: 0.72, y: 0.72, r: 18, color: '#FF4500' },
+  { id: 'KR', label: 'KRM', sub: 'CRM', x: 0.38, y: 0.18, r: 15, color: '#00C896' },
+  { id: 'AN', label: 'Anchor', sub: 'Identity', x: 0.85, y: 0.6, r: 15, color: '#0047FF' },
+  { id: 'FP', label: 'Freeport Sq.', sub: 'Commerce', x: 0.28, y: 0.82, r: 14, color: '#FF4500' },
+  { id: 'GB', label: 'GB Rewards', sub: 'Loyalty', x: 0.62, y: 0.18, r: 14, color: '#00C896' },
+  { id: 'VB', label: 'Voice of Bah.', sub: 'Civic', x: 0.78, y: 0.45, r: 13, color: '#6200FF' },
+  { id: 'KD', label: 'KemisDigital', sub: 'Platform', x: 0.62, y: 0.55, r: 20, color: '#FF4500' },
+];
+
+const edges = [
+  [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],
+  [1,4],[2,6],[5,4],[8,4],[3,5]
+];
+
+let hovered = null;
+let tick = 0;
+
+function getNodePos(n) {
+  return { x: n.x * canvas.width, y: n.y * canvas.height };
+}
+
+function drawEco() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  tick++;
+
+  // Draw edges
+  edges.forEach(([a, b]) => {
+    const pa = getNodePos(nodes[a]);
+    const pb = getNodePos(nodes[b]);
+    const pulse = (Math.sin(tick * 0.04 + a * 0.8) + 1) / 2;
+    ctx.beginPath();
+    ctx.moveTo(pa.x, pa.y);
+    ctx.lineTo(pb.x, pb.y);
+    ctx.strokeStyle = `rgba(255,255,255,${0.04 + pulse * 0.04})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // animated dot along edge
+    const t = ((tick * 0.008 + a * 0.3) % 1);
+    const dx = pb.x - pa.x, dy = pb.y - pa.y;
+    const dotX = pa.x + dx * t;
+    const dotY = pa.y + dy * t;
+    ctx.beginPath();
+    ctx.arc(dotX, dotY, 2, 0, Math.PI * 2);
+    ctx.fillStyle = nodes[a].color + '88';
+    ctx.fill();
+  });
+
+  // Draw nodes
+  nodes.forEach((n, i) => {
+    const { x, y } = getNodePos(n);
+    const isHov = hovered === i;
+    const pulse = n.core ? (Math.sin(tick * 0.05) + 1) / 2 : 0;
+
+    // outer ring (core only)
+    if (n.core) {
+      ctx.beginPath();
+      ctx.arc(x, y, n.r + 10 + pulse * 4, 0, Math.PI * 2);
+      ctx.strokeStyle = n.color + '22';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // hover ring
+    if (isHov) {
+      ctx.beginPath();
+      ctx.arc(x, y, n.r + 8, 0, Math.PI * 2);
+      ctx.strokeStyle = n.color + '55';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    // node fill
+    ctx.beginPath();
+    ctx.arc(x, y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#0D0F12';
+    ctx.fill();
+    ctx.strokeStyle = isHov ? n.color : n.color + '66';
+    ctx.lineWidth = isHov ? 2 : 1.5;
+    ctx.stroke();
+
+    // inner dot
+    ctx.beginPath();
+    ctx.arc(x, y, n.core ? 6 : 4, 0, Math.PI * 2);
+    ctx.fillStyle = n.color;
+    ctx.fill();
+
+    // label
+    ctx.font = `500 11px 'DM Sans', sans-serif`;
+    ctx.fillStyle = isHov ? '#EDECEA' : '#8A8884';
+    ctx.textAlign = 'center';
+    ctx.fillText(n.label, x, y + n.r + 16);
+
+    if (isHov) {
+      ctx.font = `400 10px 'DM Mono', monospace`;
+      ctx.fillStyle = n.color;
+      ctx.fillText(n.sub, x, y + n.r + 28);
+    }
+  });
+
+  requestAnimationFrame(drawEco);
+}
+
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  hovered = null;
+  nodes.forEach((n, i) => {
+    const { x, y } = getNodePos(n);
+    if (Math.hypot(mx - x, my - y) < n.r + 8) hovered = i;
+  });
+  canvas.style.cursor = hovered !== null ? 'none' : 'none';
+});
+
+canvas.addEventListener('mouseleave', () => { hovered = null; });
+
+drawEco();
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.borderBottomColor = window.scrollY > 40 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.07)';
+});
+</script>
+</body>
+</html>
