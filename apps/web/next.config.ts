@@ -4,7 +4,7 @@ import path from "node:path";
 const nextConfig: NextConfig = {
   output: "standalone",
   turbopack: {
-    root: path.join(__dirname, ".."),
+    root: __dirname,
   },
 };
 
