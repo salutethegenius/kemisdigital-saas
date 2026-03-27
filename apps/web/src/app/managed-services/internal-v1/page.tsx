@@ -299,10 +299,10 @@ export default function PitchSheetPage() {
         {activeTab === "overview" && (
           <>
             <Section title="What Is This?" label="Product Definition" labelColor="blue">
-              <p style={{ color: theme.muted, fontSize: "14px", lineHeight: 1.8, margin: "0 0 16px" }}>
+              <p style={{ color: theme.muted, fontSize: "16px", lineHeight: 1.8, margin: "0 0 16px" }}>
                 <strong style={{ color: theme.text }}>VerityOS Managed</strong> is a white-labeled, containerized AI knowledge and operations platform deployed directly onto a client&apos;s own infrastructure. It gives organizations a secure, private AI interface to store, organize, query, and retrieve institutional knowledge — without any data leaving their premises.
               </p>
-              <p style={{ color: theme.muted, fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
+              <p style={{ color: theme.muted, fontSize: "16px", lineHeight: 1.8, margin: 0 }}>
                 It is sold and maintained as a <strong style={{ color: theme.text }}>managed service</strong> by The Kemis Group. KGC handles deployment, data organization, model management, and ongoing maintenance under a monthly contract. The client gets outcomes — organized, accessible intelligence — not a software license.
               </p>
             </Section>
@@ -348,7 +348,7 @@ export default function PitchSheetPage() {
         {activeTab === "product" && (
           <>
             <Section title="What's Under the Hood" label="Technical Stack" labelColor="blue">
-              <p style={{ color: theme.muted, fontSize: "13px", lineHeight: 1.7, marginBottom: "20px" }}>
+              <p style={{ color: theme.muted, fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
                 Internal reference only. Client-facing materials will use VerityOS Managed branding exclusively.
               </p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
@@ -419,7 +419,7 @@ export default function PitchSheetPage() {
         {activeTab === "pricing" && (
           <>
             <Section title="Setup & Deployment Fee" label="One-Time" labelColor="orange">
-              <p style={{ color: theme.muted, fontSize: "13px", marginBottom: "20px" }}>
+              <p style={{ color: theme.muted, fontSize: "15px", marginBottom: "20px" }}>
                 Charged upon contract signing, before deployment begins. Covers all Phase 1 and Phase 2 work.
               </p>
               <div style={{ display: "flex", gap: "16px" }}>
@@ -469,7 +469,7 @@ export default function PitchSheetPage() {
             </Section>
 
             <Section title="Monthly Managed Services" label="Recurring" labelColor="blue">
-              <p style={{ color: theme.muted, fontSize: "13px", marginBottom: "20px" }}>
+              <p style={{ color: theme.muted, fontSize: "15px", marginBottom: "20px" }}>
                 Annual contract (12 months minimum). Billed quarterly — Q1 payment due at contract signing, Q2–Q4 invoiced 30 days before each quarter. Rationale: 90 days to deploy and stabilize, 90 days to tune — by month 6 the value is proven and renewal is natural.
               </p>
               <div style={{ background: theme.bg, border: `1px solid ${theme.border}`, borderRadius: "6px", padding: "0 20px" }}>
@@ -497,7 +497,7 @@ export default function PitchSheetPage() {
                 <Row label="API Pass-Through (est.)" value="~$600" note="Estimated $500/mo API cost + 15% = ~$575. Varies." />
                 <Row label="Est. Year 1 Total (per client)" value="~$15,900" />
               </div>
-              <p style={{ color: theme.muted, fontSize: "12px", marginTop: "12px", fontStyle: "italic" }}>
+              <p style={{ color: theme.muted, fontSize: "14px", marginTop: "12px", fontStyle: "italic" }}>
                 At 3 Professional clients: ~$47,700 Year 1 revenue. At 5 clients: ~$79,500. Government contracts may command higher setup fees given procurement complexity.
               </p>
             </Section>
@@ -524,7 +524,7 @@ export default function PitchSheetPage() {
             </Section>
 
             <Section title="Hardware Requirements" label="Client Responsibility" labelColor="orange">
-              <p style={{ color: theme.muted, fontSize: "13px", lineHeight: 1.7, marginBottom: "16px" }}>
+              <p style={{ color: theme.muted, fontSize: "15px", lineHeight: 1.7, marginBottom: "16px" }}>
                 Client is responsible for providing suitable hardware or server access. KGC can assist with sourcing at cost + 20% margin.
               </p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>

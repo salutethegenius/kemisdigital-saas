@@ -332,7 +332,7 @@ export default function ClientDocPage() {
             <span style={{ color: "#555", fontSize: "0.62em" }}>MANAGED</span>
           </h1>
 
-          <p style={{ color: "#aaa", fontSize: "17px", lineHeight: 1.75, maxWidth: "560px", fontStyle: "italic", margin: "0 0 40px" }}>
+          <p style={{ color: "#aaa", fontSize: "19px", lineHeight: 1.75, maxWidth: "560px", fontStyle: "italic", margin: "0 0 40px" }}>
             Private AI infrastructure for organizations that can&apos;t afford to lose their knowledge - or let it leave the building.
           </p>
 
@@ -354,7 +354,7 @@ export default function ClientDocPage() {
       <div style={{ background: ORANGE }}>
         <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px 48px", display: "flex", alignItems: "center", gap: "16px" }}>
           <div style={{ width: "6px", height: "6px", background: "#fff", borderRadius: "50%", flexShrink: 0 }} />
-          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "17px", letterSpacing: "0.08em", color: "#fff", margin: 0 }}>
+          <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "19px", letterSpacing: "0.08em", color: "#fff", margin: 0 }}>
             EVERYTHING RUNS ON YOUR HARDWARE. YOUR DATA NEVER LEAVES YOUR BUILDING. NOT TODAY, NOT EVER.
           </p>
         </div>
@@ -368,7 +368,7 @@ export default function ClientDocPage() {
               <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "36px", letterSpacing: "0.04em", color: TEXT, lineHeight: 1.1, margin: "0 0 20px" }}>
                 YOUR ORGANIZATION KNOWS MORE THAN IT CAN ACCESS
               </h2>
-              <p style={{ color: MUTED, fontSize: "16px", lineHeight: 1.85, margin: 0 }}>
+              <p style={{ color: MUTED, fontSize: "18px", lineHeight: 1.85, margin: 0 }}>
                 Years of reports, procedures, policies, and institutional knowledge - scattered across drives, inboxes, and the memories of staff who may not always be there. When you need an answer fast, you spend hours searching. When people leave, knowledge leaves with them. And when someone suggests using AI to fix it, the first question is always: <em>where does our data go?</em>
               </p>
             </div>
@@ -382,7 +382,7 @@ export default function ClientDocPage() {
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "36px", letterSpacing: "0.04em", color: TEXT, margin: "0 0 20px" }}>
             AN AI BRAIN. BUILT FOR YOUR ORGANIZATION. HOUSED ON YOUR PREMISES.
           </h2>
-          <p style={{ color: MUTED, fontSize: "16px", lineHeight: 1.85, maxWidth: "680px", margin: "0 0 48px" }}>
+          <p style={{ color: MUTED, fontSize: "18px", lineHeight: 1.85, maxWidth: "680px", margin: "0 0 48px" }}>
             VerityOS Managed is a fully private, AI-powered knowledge platform deployed directly on your organization&apos;s own hardware. Staff can ask questions in plain language and receive accurate answers drawn from your own documents, procedures, and records - instantly, securely, and without any data leaving your network.
           </p>
         </Reveal>
@@ -418,11 +418,11 @@ export default function ClientDocPage() {
             <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "36px", letterSpacing: "0.04em", color: "#fff", margin: "0 0 12px" }}>
               STRAIGHTFORWARD PRICING. NO SURPRISES.
             </h2>
-            <p style={{ color: "#888", fontSize: "15px", lineHeight: 1.75, maxWidth: "580px", marginBottom: "24px" }}>
+            <p style={{ color: "#888", fontSize: "17px", lineHeight: 1.75, maxWidth: "580px", marginBottom: "24px" }}>
               A one-time setup fee to deploy and onboard your organization, then a monthly managed services fee. Annual contract billed quarterly - aligned to how long it takes to truly optimize the system.
             </p>
             <div style={{ background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.25)", borderRadius: "4px", padding: "16px 20px", display: "inline-block", marginBottom: "36px" }}>
-              <p style={{ fontFamily: "'Lora', Georgia, serif", fontStyle: "italic", color: "#ccc", fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
+              <p style={{ fontFamily: "'Lora', Georgia, serif", fontStyle: "italic", color: "#ccc", fontSize: "17px", lineHeight: 1.7, margin: 0 }}>
                 &quot;Less than the cost of hiring one junior staff member - with AI capability for your entire organization.&quot;
               </p>
             </div>
@@ -497,7 +497,7 @@ export default function ClientDocPage() {
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "36px", letterSpacing: "0.04em", color: TEXT, margin: "0 0 20px" }}>
             BUILT FOR THE BAHAMAS. BACKED BY OVER TWO DECADES.
           </h2>
-          <p style={{ color: MUTED, fontSize: "16px", lineHeight: 1.85, maxWidth: "680px", margin: "0 0 40px" }}>
+          <p style={{ color: MUTED, fontSize: "18px", lineHeight: 1.85, maxWidth: "680px", margin: "0 0 40px" }}>
             The Kemis Group of Companies has spent over twenty years building digital infrastructure for Bahamian organizations. We understand the local environment, the procurement landscape, and what it actually takes to get technology working inside institutions here. VerityOS Managed is not an imported product - it is built, deployed, and maintained by a Bahamian team, for Bahamian institutions.
           </p>
         </Reveal>
@@ -524,13 +524,13 @@ export default function ClientDocPage() {
               <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "32px", letterSpacing: "0.04em", color: TEXT, margin: "0 0 16px", lineHeight: 1.1 }}>
                 LET&apos;S TALK ABOUT YOUR ORGANIZATION&apos;S NEEDS
               </h2>
-              <p style={{ color: MUTED, fontSize: "15px", lineHeight: 1.8, margin: "0 0 24px" }}>
+              <p style={{ color: MUTED, fontSize: "17px", lineHeight: 1.8, margin: "0 0 24px" }}>
                 Every deployment is different. We start with a conversation - understanding your data, your team, and your goals - before recommending a plan. No pressure. No proposal fee.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {[
-                  ["Email", "info@kemis.io"],
-                  ["Phone / WhatsApp", "+1 (242) 000-0000"],
+                  ["Email", "ken@kemisdigtial.com"],
+                  ["Phone / WhatsApp", "2424479692"],
                   ["Web", "kemisdigital.com"],
                 ].map(([label, value]) => (
                   <div key={label} style={{ display: "flex", gap: "12px", alignItems: "center" }}>
