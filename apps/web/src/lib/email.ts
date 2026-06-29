@@ -63,36 +63,106 @@ ${data.additional_notes || "(not provided)"}
 }
 
 /**
- * Sends a booking summary email. Swap the implementation below
- * for any provider (Resend, SendGrid, Nodemailer, etc.).
- *
- * Currently logs to console if no email provider is configured.
+ * Sends a booking summary email via Resend.
+ * Falls back to console.log if BOOKING_NOTIFICATION_EMAIL or RESEND_API_KEY
+ * is not configured, so submissions are never silently lost in dev.
  */
 export async function sendBookingEmail(data: BookingData): Promise<void> {
   const to = process.env.BOOKING_NOTIFICATION_EMAIL;
+  const apiKey = process.env.RESEND_API_KEY;
   const body = buildEmailBody(data);
+  const subject = `Strategy Session: ${data.full_name} — ${data.company_name || "Individual"}`;
 
-  if (!to) {
+  if (!to || !apiKey) {
     console.warn(
-      "[email] BOOKING_NOTIFICATION_EMAIL not set — printing to console:\n\n" +
+      `[email] Missing ${!to ? "BOOKING_NOTIFICATION_EMAIL" : "RESEND_API_KEY"} — printing to console:\n\n` +
         body
     );
     return;
   }
 
-  // ── Plug in your email provider here ──
-  // Example with Resend:
-  //
-  // const { Resend } = await import("resend");
-  // const resend = new Resend(process.env.RESEND_API_KEY);
-  // await resend.emails.send({
-  //   from: "KemisDigital <noreply@kemisdigital.com>",
-  //   to,
-  //   subject: `Strategy Session: ${data.full_name} — ${data.company_name || "Individual"}`,
-  //   text: body,
-  // });
+  const { Resend } = await import("resend");
+  const resend = new Resend(apiKey);
+  const { error } = await resend.emails.send({
+    from: "KemisDigital <noreply@kemisdigital.com>",
+    to,
+    subject,
+    text: body,
+  });
 
-  console.log(
-    `[email] Would send to ${to}:\nSubject: Strategy Session: ${data.full_name}\n\n${body}`
-  );
+  if (error) {
+    console.error("[email] Resend send error (booking):", error);
+  }
+}
+
+export type ApplicationData = {
+  business_name: string;
+  contact_name: string;
+  email: string;
+  phone?: string;
+  website_url: string;
+  processor: string;
+  why_choose: string;
+};
+
+const PROCESSOR_LABELS: Record<string, string> = {
+  kanoo: "Kanoo (existing account)",
+  suncash: "SunCash (existing account)",
+  cashngo: "Cash N' Go (existing account)",
+  none: "No account yet, ready to apply",
+};
+
+function buildApplicationEmailBody(data: ApplicationData): string {
+  return `
+New Payment Promo Application
+${"=".repeat(40)}
+
+BUSINESS
+  Business:  ${data.business_name}
+  Website:   ${data.website_url}
+
+CONTACT
+  Name:      ${data.contact_name}
+  Email:     ${data.email}
+  Phone:     ${data.phone || "—"}
+
+PROCESSOR
+  ${PROCESSOR_LABELS[data.processor] || data.processor}
+
+WHY SHOULD WE CHOOSE THIS BUSINESS?
+${data.why_choose}
+`.trim();
+}
+
+/**
+ * Sends a payment promo application summary email via Resend.
+ * Reuses BOOKING_NOTIFICATION_EMAIL. Falls back to console.log if
+ * BOOKING_NOTIFICATION_EMAIL or RESEND_API_KEY is not configured.
+ */
+export async function sendApplicationEmail(data: ApplicationData): Promise<void> {
+  const to = process.env.BOOKING_NOTIFICATION_EMAIL;
+  const apiKey = process.env.RESEND_API_KEY;
+  const body = buildApplicationEmailBody(data);
+  const subject = `Payment Promo Application: ${data.business_name} — ${data.contact_name}`;
+
+  if (!to || !apiKey) {
+    console.warn(
+      `[email] Missing ${!to ? "BOOKING_NOTIFICATION_EMAIL" : "RESEND_API_KEY"} — printing to console:\n\n` +
+        body
+    );
+    return;
+  }
+
+  const { Resend } = await import("resend");
+  const resend = new Resend(apiKey);
+  const { error } = await resend.emails.send({
+    from: "KemisDigital <noreply@kemisdigital.com>",
+    to,
+    subject,
+    text: body,
+  });
+
+  if (error) {
+    console.error("[email] Resend send error (application):", error);
+  }
 }

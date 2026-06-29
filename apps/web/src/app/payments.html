@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Take Payments Online — KemisDigital</title>
+<meta name="description" content="We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Apply now.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07080A;
+  --bg-2: #0D0F12;
+  --bg-3: #121518;
+  --ink: #EDECEA;
+  --ink-2: #8A8884;
+  --ink-3: #444240;
+  --orange: #FF4500;
+  --blue: #0047FF;
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,69,0,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.18s ease, width 0.2s ease, height 0.2s ease;
+  transform: translate(-50%, -50%);
+}
+
+/* GRID OVERLAY */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,8,10,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark { height: 32px; width: auto; }
+.nav-logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+}
+.nav-logo-text span { color: var(--orange); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--orange);
+  border: none;
+  padding: 10px 22px;
+  cursor: none;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+}
+.nav-cta:hover { background: #ff5c1a; transform: scale(1.02); }
+
+/* SECTION COMMON */
+section { position: relative; z-index: 1; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--orange);
+  display: block;
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.92;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+.accent-o { color: var(--orange); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-pulse {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1200px; height: 1200px;
+  background: radial-gradient(circle, rgba(255,69,0,0.12) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse 6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 32px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--orange);
+}
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(72px, 10vw, 160px);
+  line-height: 0.88;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--ink-2);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-top: 32px;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  border: 2px solid var(--orange);
+  padding: 14px 32px;
+  cursor: none;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: transparent; color: var(--orange); }
+.btn-ghost {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--border-strong);
+  padding: 14px 32px;
+  cursor: none;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--ink); }
+
+/* STATEMENT */
+.statement {
+  padding: 140px 48px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  overflow: hidden;
+}
+.statement-word {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(80px, 16vw, 220px);
+  line-height: 0.95;
+  letter-spacing: -4px;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: block;
+}
+
+/* WHAT YOU GET — full-bleed statement + horizontal strip */
+.get {
+  padding: 140px 48px 0;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.get-statement {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(64px, 11vw, 180px);
+  line-height: 0.86;
+  letter-spacing: -4px;
+  text-transform: uppercase;
+  color: var(--ink);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+.get-statement .accent-o { color: var(--orange); }
+.get-statement .dim { color: var(--ink-3); }
+.get-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.get-strip-item {
+  padding: 48px 36px 56px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.25s;
+}
+.get-strip-item:last-child { border-right: none; }
+.get-strip-item:hover { background: var(--bg-3); }
+.get-strip-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--orange);
+  margin-bottom: 24px;
+}
+.get-strip-item h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(22px, 2.4vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.get-strip-item p {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* HOW WE PICK */
+.pick {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.pick-inner { max-width: 1200px; margin: 0 auto; }
+.pick-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 9vw, 140px);
+  line-height: 0.9;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 64px;
+}
+.pick-list { display: flex; flex-direction: column; }
+.pick-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 32px;
+  align-items: baseline;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.pick-row:last-child { border-bottom: 1px solid var(--border); }
+.pick-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--orange);
+}
+.pick-row h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 44px);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  line-height: 1.05;
+}
+.pick-row p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-top: 12px;
+  max-width: 640px;
+}
+
+/* EXCHANGE */
+.exchange {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+}
+.exchange-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.exchange-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.exchange-item {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+}
+.exchange-item:first-child { border-top: 1px solid var(--border); }
+.exchange-check {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px;
+  background: rgba(255,69,0,0.08);
+}
+.exchange-check svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 2.5; }
+.exchange-item h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.05;
+}
+.exchange-item p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  font-weight: 300;
+}
+.exchange-aside {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  padding: 56px 44px;
+  position: relative;
+}
+.exchange-aside::before {
+  content: '"';
+  position: absolute;
+  top: -16px; left: 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 140px;
+  color: var(--orange);
+  line-height: 1;
+  opacity: 0.25;
+}
+.exchange-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -1.5px;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+.exchange-quote span { color: var(--orange); font-style: normal; }
+.exchange-aside p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-top: 32px;
+}
+
+/* TRUSTED */
+.trusted {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.trusted-inner { max-width: 1200px; margin: 0 auto; }
+.trusted-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 56px;
+}
+.trusted-card {
+  background: var(--bg);
+  border-left: 3px solid var(--orange);
+  padding: 28px 32px;
+}
+.trusted-status {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+.trusted-card h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.trusted-card p {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* FORM */
+.form-section {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+}
+.form-inner { max-width: 760px; margin: 0 auto; }
+.form-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 8vw, 110px);
+  line-height: 0.9;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.form-sub {
+  font-size: 16px;
+  color: var(--ink-2);
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 56px;
+  max-width: 560px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  padding: 14px 16px;
+  border-radius: 0;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  width: 100%;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--ink-3); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  background: rgba(255,69,0,0.04);
+  box-shadow: 0 0 0 1px var(--orange), 0 0 24px rgba(255,69,0,0.18);
+}
+.form-group:focus-within label {
+  color: var(--orange);
+}
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%238A8884' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+.form-group select option { background: var(--bg-3); color: var(--ink); }
+.form-group textarea { resize: vertical; min-height: 130px; font-family: 'DM Sans', sans-serif; }
+.form-submit {
+  width: 100%;
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 18px;
+  border: 2px solid var(--orange);
+  cursor: none;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+.form-submit:hover { background: transparent; color: var(--orange); }
+.form-submit:disabled { opacity: 0.5; cursor: wait; }
+.form-status {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 22px;
+}
+.form-status.ok { color: var(--orange); }
+.form-status.err { color: #ff6b5e; }
+.form-footer-note {
+  margin-top: 28px;
+  font-size: 13px;
+  color: var(--ink-3);
+  text-align: center;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+footer {
+  padding: 60px 48px 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+.footer-brand-name span { color: var(--orange); }
+.footer-tagline {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 260px;
+}
+.footer-contact {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--ink-2);
+  margin-top: 14px;
+}
+.footer-contact a { color: var(--ink-2); text-decoration: none; transition: color 0.2s; }
+.footer-contact a:hover { color: var(--ink); }
+.footer-col-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--ink); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ink-3);
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+/* LEFT-WIPE for pick rows */
+.wipe {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.wipe.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-h1 { font-size: 56px; letter-spacing: -2px; }
+  .statement { padding: 80px 20px; }
+  .statement-word { font-size: 64px; letter-spacing: -2px; }
+  .get { padding: 80px 20px 0; }
+  .get-statement { font-size: 56px; letter-spacing: -2px; padding-bottom: 48px; }
+  .get-strip { grid-template-columns: 1fr; }
+  .get-strip-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .get-strip-item:last-child { border-bottom: none; }
+  .pick { padding: 80px 20px; }
+  .pick-row { grid-template-columns: 64px 1fr; gap: 20px; }
+  .pick-num { font-size: 40px; }
+  .exchange { padding: 80px 20px; }
+  .exchange-inner { grid-template-columns: 1fr; gap: 48px; }
+  .exchange-aside { padding: 32px 28px; }
+  .trusted { padding: 80px 20px; }
+  .trusted-grid { grid-template-columns: 1fr; }
+  .form-section { padding: 80px 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  footer { padding: 40px 20px 30px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+  .btn-primary, .btn-ghost, .nav-cta, .form-submit { cursor: pointer; }
+}
+@media (max-width: 560px) {
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal, .wipe { opacity: 1; transform: none; }
+  .hero-pulse { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="grid-overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg class="nav-logo-mark" width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0"  y="4"  width="36" height="9"  rx="2.5" fill="#FF4500"/>
+      <rect x="0"  y="18" width="28" height="9"  rx="2.5" fill="#0047FF"/>
+      <rect x="0"  y="32" width="18" height="9"  rx="2.5" fill="#FF4500" opacity="0.35"/>
+      <text x="50" y="30" font-family="'Barlow Condensed', sans-serif" font-size="24" font-weight="800" fill="#EDECEA" letter-spacing="0.5">
+        Kemis<tspan fill="#FF4500">Digital</tspan>
+      </text>
+    </svg>
+  </a>
+  <a href="#apply" class="nav-cta">Apply Now →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-pulse"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Campaign — 3 Spots Only · The Bahamas</div>
+    <h1 class="hero-h1">
+      Your Website<br>
+      Can Take<br>
+      <span class="accent-o">Payments.</span>
+    </h1>
+    <p class="hero-sub">We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Built into your existing site, ready to take cards.</p>
+    <div class="hero-actions">
+      <a href="#apply" class="btn-primary">Apply Now →</a>
+      <a href="#how" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement" id="statement">
+  <span class="statement-word" data-word>Free.</span>
+  <span class="statement-word" data-word>Branded.</span>
+  <span class="statement-word accent-o" data-word>Bahamian.</span>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="get reveal" id="how">
+  <h2 class="get-statement">
+    Built <span class="accent-o">In.</span><br>
+    <span class="dim">Not</span> Bolted On.
+  </h2>
+  <div class="get-strip">
+    <div class="get-strip-item">
+      <div class="get-strip-num">— 01</div>
+      <h3>Full Payment Integration</h3>
+      <p>A secure, working checkout built directly into your existing website. Your customers pay online with a local card, any time, even when your doors are closed.</p>
+    </div>
+    <div class="get-strip-item">
+      <div class="get-strip-num">— 02</div>
+      <h3>Processor Setup Guidance</h3>
+      <p>No Kanoo, SunCash, or Cash N' Go merchant account yet? No problem. We walk you through getting one. All you need is your business licence.</p>
+    </div>
+    <div class="get-strip-item">
+      <div class="get-strip-num">— 03</div>
+      <h3>Branded Checkout</h3>
+      <p>Your checkout matches your colors, your look. Not a plug-in stuck onto your site. It looks like you built it that way from day one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE PICK -->
+<section class="pick reveal">
+  <div class="pick-inner">
+    <div class="section-label">Selection Criteria</div>
+    <h2 class="pick-headline">We Choose 3.</h2>
+    <div class="pick-list">
+      <div class="pick-row wipe">
+        <span class="pick-num">01</span>
+        <div>
+          <h3>You already have a website</h3>
+          <p>It does not need to be fancy. But it needs to exist and be something your customers actually visit. We are building on top of what you already have.</p>
+        </div>
+      </div>
+      <div class="pick-row wipe">
+        <span class="pick-num">02</span>
+        <div>
+          <h3>You hold a valid Bahamian business licence</h3>
+          <p>That is all you need to open a merchant account with any of our local processor partners. Kanoo, SunCash, or Cash N' Go. You pick.</p>
+        </div>
+      </div>
+      <div class="pick-row wipe">
+        <span class="pick-num">03</span>
+        <div>
+          <h3>You are ready to move fast</h3>
+          <p>Selected businesses need to be available and responsive during the build. We are not looking for maybes. We are looking for businesses ready to go.</p>
+        </div>
+      </div>
+      <div class="pick-row wipe">
+        <span class="pick-num">04</span>
+        <div>
+          <h3>Customers pay you for something</h3>
+          <p>Tours, transport, retail, services, food, anything where a customer transaction happens. If money changes hands in your business, this works for you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE EXCHANGE -->
+<section class="exchange reveal">
+  <div class="exchange-inner">
+    <div>
+      <div class="section-label">The Exchange</div>
+      <h2 class="section-title">Free For You.<br>Here Is The Ask.</h2>
+      <ul class="exchange-list">
+        <li class="exchange-item">
+          <div class="exchange-check"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div>
+            <h4>A short testimonial</h4>
+            <p>A few sentences from you about your experience working with KemisDigital and how the integration has helped your business.</p>
+          </div>
+        </li>
+        <li class="exchange-item">
+          <div class="exchange-check"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div>
+            <h4>Portfolio reference</h4>
+            <p>We list your business as a KemisDigital client on our site and in our marketing, with your permission and approval on how you are represented.</p>
+          </div>
+        </li>
+        <li class="exchange-item">
+          <div class="exchange-check"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+          <div>
+            <h4>A short case study</h4>
+            <p>We document the before and after together with you, a simple story of what changed in your business once you could accept cards online. Nothing invasive.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="exchange-aside">
+      <p class="exchange-quote">We built it.<br>You <span>own it.</span><br>That is the<br>whole model.</p>
+      <p>KemisDigital is a Freeport-based technology company building digital infrastructure owned and operated right here in The Bahamas. This programme is how we grow that record, one local business at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUSTED BY -->
+<section class="trusted reveal">
+  <div class="trusted-inner">
+    <div class="section-label">Already Trusted By</div>
+    <h2 class="section-title">Bahamian Organisations<br>Working With Us Now.</h2>
+    <div class="trusted-grid">
+      <div class="trusted-card">
+        <div class="trusted-status">Live — Payment Integration</div>
+        <h4>Urban Nassau Rides</h4>
+        <p>Delivery and messenger company, Nassau. Online payments fully integrated and live.</p>
+      </div>
+      <div class="trusted-card">
+        <div class="trusted-status">Live — Members Portal</div>
+        <h4>Bahamas Association of Compliance Officers</h4>
+        <p>Full members portal, built and running. Branded to their organisation, not to ours.</p>
+      </div>
+      <div class="trusted-card">
+        <div class="trusted-status">Launching Imminently</div>
+        <h4>Bahamas Central Securities Depository</h4>
+        <p>Full website build, launching imminently.</p>
+      </div>
+      <div class="trusted-card">
+        <div class="trusted-status">In Development</div>
+        <h4>Downtown Freeport Business Association</h4>
+        <p>Business directory portal for downtown Freeport, currently in development.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="form-section" id="apply">
+  <div class="form-inner">
+    <div class="section-label">Apply Now</div>
+    <h2 class="form-headline">Submit Your <span class="accent-o">Business.</span></h2>
+    <p class="form-sub">We are selecting three businesses only. Fill out the form below and we will review your submission within 48 hours.</p>
+    <form id="applyForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="business_name">Business Name</label>
+          <input type="text" id="business_name" name="business_name" placeholder="Your business name" required />
+        </div>
+        <div class="form-group">
+          <label for="contact_name">Your Name</label>
+          <input type="text" id="contact_name" name="contact_name" placeholder="First and last name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@yourbusiness.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(242) 000-0000" />
+        </div>
+        <div class="form-group full">
+          <label for="website_url">Your Website URL</label>
+          <input type="url" id="website_url" name="website_url" placeholder="https://yourbusiness.com" required />
+        </div>
+        <div class="form-group full">
+          <label for="processor">Payment Processor</label>
+          <select id="processor" name="processor" required>
+            <option value="">Select one</option>
+            <option value="kanoo">I already have a Kanoo merchant account</option>
+            <option value="suncash">I already have a SunCash merchant account</option>
+            <option value="cashngo">I already have a Cash N' Go merchant account</option>
+            <option value="none">I do not have one yet but I am ready to apply</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="why_choose">Why should we choose your business?</label>
+          <textarea id="why_choose" name="why_choose" placeholder="Tell us what your business does, who your customers are, and why online payments would make a difference for you." required></textarea>
+        </div>
+      </div>
+      <button type="submit" class="form-submit" id="submitBtn">Submit My Business →</button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      <p class="form-footer-note">We review every submission. Three spots only. Selected businesses hear from us within 48 hours.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">
+        <svg class="nav-logo-mark" width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0"  y="4"  width="36" height="9"  rx="2.5" fill="#FF4500"/>
+          <rect x="0"  y="18" width="28" height="9"  rx="2.5" fill="#0047FF"/>
+          <rect x="0"  y="32" width="18" height="9"  rx="2.5" fill="#FF4500" opacity="0.35"/>
+          <text x="50" y="30" font-family="'Barlow Condensed', sans-serif" font-size="24" font-weight="800" fill="#EDECEA" letter-spacing="0.5">
+            Kemis<tspan fill="#FF4500">Digital</tspan>
+          </text>
+        </svg>
+      </div>
+      <p class="footer-tagline">The software platform built for Bahamian business. 20+ years of digital infrastructure in the Caribbean.</p>
+      <p class="footer-contact">
+        Freeport, Grand Bahama<br>
+        <a href="mailto:ken@kemisdigital.com">ken@kemisdigital.com</a> · (242) 447-9692
+      </p>
+    </div>
+    <div>
+      <div class="footer-col-title">Products</div>
+      <ul class="footer-links">
+        <li><a href="https://kemispay.com" target="_blank" rel="noreferrer">KemisPay</a></li>
+        <li><a href="https://verityos.net" target="_blank" rel="noreferrer">VerityOS</a></li>
+        <li><a href="https://kemis.email" target="_blank" rel="noreferrer">KemisEMAIL</a></li>
+        <li><a href="https://krmdesk.com" target="_blank" rel="noreferrer">KRM</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Ecosystem</div>
+      <ul class="footer-links">
+        <li><a href="https://freeportsquares.com" target="_blank" rel="noreferrer">Freeport Squares</a></li>
+        <li><a href="https://gbrewards.com" target="_blank" rel="noreferrer">Grand Bahama Rewards</a></li>
+        <li><a href="https://voiceofthebahamas.com" target="_blank" rel="noreferrer">Voice of The Bahamas</a></li>
+        <li><a href="https://lawbey.com" target="_blank" rel="noreferrer">LawBey</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="https://kemisdigital.com">The Kemis Group</a></li>
+        <li><a href="https://kemisdigital.com/#services">Services</a></li>
+        <li><a href="https://kemisdigital.com/privacy">Privacy</a></li>
+        <li><a href="/apply">Payment Promo</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 The Kemis Group of Companies. Freeport, Grand Bahama.</div>
+    <div class="footer-copy">Built here. Owned here. Stays here.</div>
+  </div>
+</footer>
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // CUSTOM CURSOR
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
+    });
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button, .get-strip-item, .trusted-card, input, select, textarea').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width = '48px';
+        cursorRing.style.height = '48px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width = '32px';
+        cursorRing.style.height = '32px';
+      });
+    });
+  } else {
+    document.body.style.cursor = 'auto';
+    if (cursor) cursor.style.display = 'none';
+    if (cursorRing) cursorRing.style.display = 'none';
+  }
+
+  // SCROLL REVEAL (IntersectionObserver)
+  const revealEls = document.querySelectorAll('.reveal, .wipe');
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // GSAP
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !reduceMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero parallax — headline 0.4x, pulse background 0.2x
+    gsap.to('.hero-content', {
+      yPercent: -40,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.6
+      }
+    });
+    gsap.to('.hero-pulse', {
+      yPercent: -20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.6
+      }
+    });
+
+    // Statement — three words slam in one by one
+    gsap.from('.statement-word', {
+      y: 120,
+      opacity: 0,
+      duration: 0.3,
+      stagger: 0.15,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.statement',
+        start: 'top 70%'
+      }
+    });
+
+    // Pick rows use the CSS .wipe/.visible IntersectionObserver pattern
+    // (left-wipe reveal) to avoid GSAP inline-style conflicts with the class.
+
+    // Trusted cards — fade stagger
+    gsap.from('.trusted-card', {
+      y: 30,
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.trusted-grid',
+        start: 'top 75%'
+      }
+    });
+  } else if (reduceMotion) {
+    document.querySelectorAll('.reveal, .wipe, .statement-word').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
+
+  // FORM SUBMISSION
+  const form = document.getElementById('applyForm');
+  const statusEl = document.getElementById('formStatus');
+  const submitBtn = document.getElementById('submitBtn');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.className = 'form-status';
+    statusEl.textContent = '';
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const payload = {
+      business_name: form.business_name.value.trim(),
+      contact_name: form.contact_name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      website_url: form.website_url.value.trim(),
+      processor: form.processor.value,
+      why_choose: form.why_choose.value.trim(),
+      source_url: window.location.href,
+      user_agent: navigator.userAgent
+    };
+
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.textContent;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+      const res = await fetch('/api/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        statusEl.className = 'form-status ok';
+        statusEl.textContent = data.message || "Thank you. Your application has been received. We will be in touch within 48 hours.";
+        form.reset();
+      } else {
+        statusEl.className = 'form-status err';
+        statusEl.textContent = data.message || "Something went wrong. Please try again.";
+      }
+    } catch (err) {
+      statusEl.className = 'form-status err';
+      statusEl.textContent = "Could not reach the server. Please check your connection and try again.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+})();
+</script>
+</body>
+</html>
