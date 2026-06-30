@@ -3,8 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Take Payments Online — KemisDigital</title>
-<meta name="description" content="We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Apply now.">
+<title>Free Payment Integration — 3 Bahamian Businesses, Independence Day 2026</title>
+<meta name="description" content="We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Announced on Independence Day, July 10, 2026. Apply before the deadline.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="The Kemis Group of Companies">
+<meta name="theme-color" content="#07080A">
+<link rel="canonical" href="https://kemisdigital.com/apply">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KemisDigital">
+<meta property="og:title" content="Take Payments Online — Free Payment Integration for Bahamian Business">
+<meta property="og:description" content="We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Apply now.">
+<meta property="og:url" content="https://kemisdigital.com/apply">
+<meta property="og:image" content="https://kemisdigital.com/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KemisDigital — Free Online Payment Integration Campaign">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Take Payments Online — Free Payment Integration for Bahamian Business">
+<meta name="twitter:description" content="We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Apply now.">
+<meta name="twitter:image" content="https://kemisdigital.com/og-image.svg">
+<meta name="twitter:image:alt" content="KemisDigital — Free Online Payment Integration Campaign">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Free Online Payment Integration for Bahamian Business",
+  "serviceType": "Payment integration build and deployment",
+  "description": "KemisDigital is selecting 3 Bahamian businesses to receive a free, fully branded online payment integration built into their existing website. Includes processor setup guidance and branded checkout.",
+  "provider": {
+    "@type": "Organization",
+    "name": "KemisDigital",
+    "url": "https://kemisdigital.com",
+    "email": "frontdesk@kemisdigital.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Freeport",
+      addressCountry: "BS"
+    }
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "The Bahamas"
+  },
+  "url": "https://kemisdigital.com/apply",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BSD",
+    "description": "Free for selected businesses in exchange for testimonial, portfolio reference, and a short case study.",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2026-01-01"
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -206,6 +262,116 @@ section { position: relative; z-index: 1; }
   max-width: 560px;
   margin-top: 32px;
 }
+
+/* COUNTDOWN (hero) */
+.countdown {
+  display: flex;
+  align-items: flex-end;
+  margin: 36px 0 44px;
+}
+.countdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 28px;
+  border-right: 1px solid var(--border);
+}
+.countdown-block:first-child { padding-left: 0; }
+.countdown-block:last-child { border-right: none; padding-right: 0; }
+.countdown-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 7vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+}
+.countdown-block.primary .countdown-num { color: var(--orange); }
+.countdown-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-top: 12px;
+}
+.countdown.is-zero .countdown-num { color: var(--ink-3); }
+.countdown.is-zero .countdown-block.primary .countdown-num { color: var(--ink-3); }
+
+/* STICKY COUNTDOWN BAR */
+.countdown-sticky {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(7, 8, 10, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 48px;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.countdown-sticky.visible { transform: translateY(0); }
+.countdown-sticky-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.countdown-sticky-count {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+.countdown-sticky-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+}
+.countdown-sticky-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: -1px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.countdown-sticky-block.primary .countdown-sticky-num { color: var(--orange); }
+.countdown-sticky-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 4px;
+}
+.countdown-sticky.is-zero .countdown-sticky-num,
+.countdown-sticky.is-zero .countdown-sticky-block.primary .countdown-sticky-num { color: var(--ink-3); }
+.countdown-sticky-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  border: 2px solid var(--orange);
+  padding: 8px 18px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+.countdown-sticky-cta:hover { background: transparent; color: var(--orange); }
+
 .hero-actions {
   display: flex;
   gap: 16px;
@@ -708,6 +874,9 @@ footer {
   nav { padding: 0 20px; }
   .hero { padding: 100px 20px 60px; }
   .hero-h1 { font-size: 56px; letter-spacing: -2px; }
+  .countdown { margin: 28px 0 36px; }
+  .countdown-block { padding: 0 18px; }
+  .countdown-block:first-child { padding-left: 0; }
   .statement { padding: 80px 20px; }
   .statement-word { font-size: 64px; letter-spacing: -2px; }
   .get { padding: 80px 20px 0; }
@@ -730,6 +899,7 @@ footer {
   .cursor, .cursor-ring { display: none; }
   body { cursor: auto; }
   .btn-primary, .btn-ghost, .nav-cta, .form-submit { cursor: pointer; }
+  .countdown-sticky { display: none; }
 }
 @media (max-width: 560px) {
   .footer-top { grid-template-columns: 1fr; gap: 32px; }
@@ -767,17 +937,59 @@ footer {
   <a href="#apply" class="nav-cta">Apply Now →</a>
 </nav>
 
+<!-- COUNTDOWN STICKY BAR -->
+<div class="countdown-sticky" id="countdownSticky" aria-label="Time until Independence Day, July 10, 2026">
+  <div class="countdown-sticky-label">Independence Day — July 10, 2026</div>
+  <div class="countdown-sticky-count">
+    <div class="countdown-sticky-block primary">
+      <span class="countdown-sticky-num" data-cd="days">--</span>
+      <span class="countdown-sticky-sub">Days</span>
+    </div>
+    <div class="countdown-sticky-block">
+      <span class="countdown-sticky-num" data-cd="hours">--</span>
+      <span class="countdown-sticky-sub">Hours</span>
+    </div>
+    <div class="countdown-sticky-block">
+      <span class="countdown-sticky-num" data-cd="mins">--</span>
+      <span class="countdown-sticky-sub">Mins</span>
+    </div>
+    <div class="countdown-sticky-block">
+      <span class="countdown-sticky-num" data-cd="secs">--</span>
+      <span class="countdown-sticky-sub">Secs</span>
+    </div>
+  </div>
+  <a href="#apply" class="countdown-sticky-cta">Apply Now →</a>
+</div>
+
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-pulse"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Campaign — 3 Spots Only · The Bahamas</div>
+    <div class="hero-eyebrow">Independence Day 2026 — 3 Spots · The Bahamas</div>
+    <div class="countdown" id="countdownHero" aria-label="Time until Independence Day, July 10, 2026">
+      <div class="countdown-block primary">
+        <span class="countdown-num" data-cd="days">--</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <div class="countdown-block">
+        <span class="countdown-num" data-cd="hours">--</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <div class="countdown-block">
+        <span class="countdown-num" data-cd="mins">--</span>
+        <span class="countdown-label">Mins</span>
+      </div>
+      <div class="countdown-block">
+        <span class="countdown-num" data-cd="secs">--</span>
+        <span class="countdown-label">Secs</span>
+      </div>
+    </div>
     <h1 class="hero-h1">
-      Your Website<br>
-      Can Take<br>
-      <span class="accent-o">Payments.</span>
+      This Independence,<br>
+      3 Bahamian Businesses<br>
+      <span class="accent-o">Level Up.</span>
     </h1>
-    <p class="hero-sub">We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration. Built into your existing site, ready to take cards.</p>
+    <p class="hero-sub">We are selecting 3 Bahamian businesses to receive a free, fully branded online payment integration — announced on Independence Day, July 10, 2026. Built into your existing site, ready to take cards.</p>
     <div class="hero-actions">
       <a href="#apply" class="btn-primary">Apply Now →</a>
       <a href="#how" class="btn-ghost">See How It Works</a>
@@ -1014,7 +1226,7 @@ footer {
       <div class="footer-col-title">Company</div>
       <ul class="footer-links">
         <li><a href="https://kemisdigital.com">The Kemis Group</a></li>
-        <li><a href="https://kemisdigital.com/#services">Services</a></li>
+        <li><a href="https://kemisdigital.com/v2#capabilities">Services</a></li>
         <li><a href="https://kemisdigital.com/privacy">Privacy</a></li>
         <li><a href="/apply">Payment Promo</a></li>
       </ul>
@@ -1032,6 +1244,76 @@ footer {
 <script>
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // CONFETTI — first visit only (Independence Day celebration)
+  (function fireConfetti() {
+    if (reduceMotion) return;
+    let seen = false;
+    try { seen = localStorage.getItem('kd_apply_confetti_seen') === '1'; } catch (e) {}
+    if (seen) return;
+    try { localStorage.setItem('kd_apply_confetti_seen', '1'); } catch (e) {}
+
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:200;width:100%;height:100%;';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function sizeCanvas() {
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+    }
+    sizeCanvas();
+
+    const COLORS = ['#FF4500', '#0047FF', '#EDECEA', '#FFB347', '#ffffff'];
+    const COUNT = 160;
+    const particles = [];
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 120,
+        y: window.innerHeight * 0.35 + (Math.random() - 0.5) * 60,
+        vx: (Math.random() - 0.5) * 14,
+        vy: -Math.random() * 16 - 6,
+        size: 6 + Math.random() * 8,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        rot: Math.random() * Math.PI * 2,
+        vrot: (Math.random() - 0.5) * 0.3,
+        life: 1
+      });
+    }
+
+    let frames = 0;
+    const maxFrames = 180;
+    function tick() {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      let alive = 0;
+      for (const p of particles) {
+        if (p.life <= 0) continue;
+        alive++;
+        p.vy += 0.32;       // gravity
+        p.vx *= 0.99;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vrot;
+        if (frames > 120) p.life -= 0.03;
+        if (p.y > window.innerHeight + 40) p.life = 0;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        ctx.restore();
+      }
+      frames++;
+      if (alive > 0 && frames < maxFrames) {
+        requestAnimationFrame(tick);
+      } else {
+        canvas.remove();
+      }
+    }
+    setTimeout(tick, 450);
+  })();
 
   // CUSTOM CURSOR
   const cursor = document.getElementById('cursor');
@@ -1138,11 +1420,77 @@ footer {
     });
   }
 
+  // COUNTDOWN — Independence Day, July 10, 2026 (midnight Nassau / America/Nassau EDT = UTC-4)
+  const DEADLINE = new Date('2026-07-10T04:00:00Z');
+  const countdownHero = document.getElementById('countdownHero');
+  const countdownSticky = document.getElementById('countdownSticky');
+
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = Math.max(0, DEADLINE.getTime() - now);
+    const expired = diff === 0;
+    const totalSecs = Math.floor(diff / 1000);
+    const days = Math.floor(totalSecs / 86400);
+    const hours = Math.floor((totalSecs % 86400) / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+    const values = { days: pad2(days), hours: pad2(hours), mins: pad2(mins), secs: pad2(secs) };
+
+    document.querySelectorAll('[data-cd]').forEach(el => {
+      el.textContent = values[el.getAttribute('data-cd')];
+    });
+
+    if (countdownHero) countdownHero.classList.toggle('is-zero', expired);
+    if (countdownSticky) countdownSticky.classList.toggle('is-zero', expired);
+
+    if (expired) lockForm();
+  }
+
+  let formLocked = false;
+  function lockForm() {
+    if (formLocked) return;
+    formLocked = true;
+    const form = document.getElementById('applyForm');
+    if (!form) return;
+    form.querySelectorAll('input, select, textarea, button').forEach(el => { el.disabled = true; });
+    const statusEl = document.getElementById('formStatus');
+    if (statusEl) {
+      statusEl.className = 'form-status ok';
+      statusEl.textContent = "Applications for this Independence Day campaign are now closed. Follow @kemisdigital for the next one.";
+    }
+    const note = document.querySelector('.form-footer-note');
+    if (note) note.textContent = "The Independence Day 2026 campaign closed on July 10. Thank you to every business that applied.";
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) updateCountdown(); });
+
+  // STICKY BAR — reveal once the hero scrolls out of view
+  if (countdownSticky) {
+    const hero = document.querySelector('.hero');
+    const onScroll = () => {
+      if (!hero) return;
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      countdownSticky.classList.toggle('visible', heroBottom <= 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   // FORM SUBMISSION
   const form = document.getElementById('applyForm');
   const statusEl = document.getElementById('formStatus');
   const submitBtn = document.getElementById('submitBtn');
   if (!form) return;
+
+  // Hard stop if the Independence Day deadline has already passed.
+  if (Date.now() >= DEADLINE.getTime()) {
+    lockForm();
+    return;
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

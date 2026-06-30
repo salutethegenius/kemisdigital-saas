@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_DESCRIPTION,
+  SITE_OG_IMAGE,
+} from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,13 +20,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kemisdigital.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "KemisDigital — Software Platforms for Bahamian Business",
-    template: "%s — KemisDigital",
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    "KemisDigital designs and builds software platforms for Bahamian businesses — payments, portals, automation, and AI tools on production-ready infrastructure.",
+  description: SITE_DESCRIPTION,
   alternates: {
     canonical: "/",
   },
@@ -32,27 +38,25 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "KemisDigital — Software Platforms for Bahamian Business",
-    description:
-      "KemisDigital designs and builds software platforms for Bahamian businesses — payments, portals, automation, and AI tools on production-ready infrastructure.",
-    url: "https://kemisdigital.com/",
-    siteName: "KemisDigital",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    url: `${SITE_URL}/`,
+    siteName: SITE_NAME,
     type: "website",
     images: [
       {
-        url: "/og-image.svg",
+        url: SITE_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "KemisDigital — Software Platforms for Bahamian Business",
+        alt: `${SITE_NAME} — ${SITE_TAGLINE}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "KemisDigital — Software Platforms for Bahamian Business",
-    description:
-      "KemisDigital designs and builds software platforms for Bahamian businesses — payments, portals, automation, and AI tools on production-ready infrastructure.",
-    images: ["/og-image.svg"],
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE],
   },
   icons: {
     icon: "/favicon.svg",
@@ -60,6 +64,40 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.svg",
   },
   manifest: "/manifest.json",
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/og-image.svg`,
+  description: SITE_DESCRIPTION,
+  email: "frontdesk@kemisdigital.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Nassau",
+    addressCountry: "BS",
+  },
+  sameAs: [
+    "https://kemispay.com",
+    "https://verityos.net",
+    "https://kemis.email",
+    "https://krmdesk.com",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({
@@ -72,6 +110,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
         {children}
       </body>
     </html>

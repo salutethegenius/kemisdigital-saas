@@ -1,7 +1,7 @@
 {
   "name": "KemisDigital",
   "short_name": "KemisDigital",
-  "start_url": "/",
+  "start_url": "/v2",
   "display": "standalone",
   "background_color": "#0A1628",
   "theme_color": "#0066FF",
