@@ -898,6 +898,166 @@ footer {
 }
 .footer-legal a:hover { color: var(--ink-2); }
 
+/* GET PAID ONLINE POPUP */
+.gpo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(7, 8, 10, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.gpo-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.gpo-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  background: var(--bg-2);
+  border: 2px solid var(--orange);
+  box-shadow: 0 0 60px rgba(255, 69, 0, 0.25), 0 24px 80px rgba(0, 0, 0, 0.6);
+  padding: 40px 36px 32px;
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.gpo-overlay.is-open .gpo-card {
+  transform: none;
+}
+.gpo-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--ink-2);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.gpo-close:hover { color: var(--ink); border-color: var(--ink-2); }
+.gpo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+.gpo-badge::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--orange);
+}
+.gpo-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(32px, 5vw, 44px);
+  line-height: 0.95;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.gpo-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 6vw, 56px);
+  line-height: 1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 24px;
+}
+.gpo-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.gpo-bullets li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  font-weight: 300;
+}
+.gpo-bullets li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  background: var(--orange);
+  border-radius: 1px;
+}
+.gpo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.gpo-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  border: 2px solid var(--orange);
+  padding: 16px 28px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.gpo-cta:hover { background: transparent; color: var(--orange); }
+.gpo-dismiss {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--ink-3);
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.gpo-dismiss:hover { color: var(--ink-2); }
+body.gpo-locked { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .gpo-overlay, .gpo-card { transition: none; }
+  .gpo-overlay .gpo-card { transform: none; }
+}
+@media (max-width: 900px) {
+  .gpo-card { padding: 32px 24px 28px; }
+  .gpo-close { cursor: pointer; }
+  .gpo-cta, .gpo-dismiss { cursor: pointer; }
+}
+
 /* SCROLL REVEAL */
 .reveal {
   opacity: 0;
@@ -943,6 +1103,25 @@ footer {
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- GET PAID ONLINE POPUP -->
+<div class="gpo-overlay" id="gpoOverlay" role="dialog" aria-modal="true" aria-labelledby="gpoHeadline" aria-hidden="true">
+  <div class="gpo-card" id="gpoCard">
+    <button type="button" class="gpo-close" id="gpoClose" aria-label="Close">&times;</button>
+    <div class="gpo-badge">Get Paid Online</div>
+    <h2 class="gpo-headline" id="gpoHeadline">Your customers pay you online — even when you're closed.</h2>
+    <div class="gpo-price">Starting at $350</div>
+    <ul class="gpo-bullets">
+      <li>Custom branded checkout built into your existing site</li>
+      <li>Dashboard to track payments and manage your business</li>
+      <li>Local processor setup (Kanoo, SunCash, Cash N' Go)</li>
+    </ul>
+    <div class="gpo-actions">
+      <a href="/apply?utm_source=homepage_popup" class="gpo-cta" id="gpoCta">I'm Interested</a>
+      <button type="button" class="gpo-dismiss" id="gpoDismiss">Not now</button>
+    </div>
+  </div>
+</div>
 
 <!-- PRELOADER -->
 <div id="preloader">
@@ -1383,6 +1562,7 @@ footer {
       <ul class="footer-links">
         <li><a href="#hero">About KGC</a></li>
         <li><a href="https://kemisdigital.com">The Kemis Group</a></li>
+        <li><a href="/apply">Get Paid Online</a></li>
         <li><a href="#capabilities">The Free Zone</a></li>
         <li><a href="mailto:frontdesk@kemisdigital.com">Contact</a></li>
         <li><a href="https://kemisdigital.com/privacy">Privacy</a></li>
@@ -1587,6 +1767,82 @@ window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
   nav.style.borderBottomColor = window.scrollY > 40 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.07)';
 });
+
+// GET PAID ONLINE POPUP
+(function initGpoPopup() {
+  const CONVERTED_KEY = 'kd_payments_popup_converted';
+  const overlay = document.getElementById('gpoOverlay');
+  const card = document.getElementById('gpoCard');
+  const closeBtn = document.getElementById('gpoClose');
+  const dismissBtn = document.getElementById('gpoDismiss');
+  const cta = document.getElementById('gpoCta');
+  if (!overlay || !card) return;
+
+  let converted = false;
+  try { converted = localStorage.getItem(CONVERTED_KEY) === '1'; } catch (e) {}
+  if (converted) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lastFocus = null;
+  let isOpen = false;
+
+  function getFocusable() {
+    return Array.from(card.querySelectorAll('a[href], button:not([disabled])'));
+  }
+
+  function openPopup() {
+    if (isOpen) return;
+    isOpen = true;
+    lastFocus = document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('gpo-locked');
+    const focusable = getFocusable();
+    (focusable[0] || closeBtn)?.focus();
+  }
+
+  function closePopup() {
+    if (!isOpen) return;
+    isOpen = false;
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('gpo-locked');
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  closeBtn?.addEventListener('click', closePopup);
+  dismissBtn?.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closePopup();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const focusable = getFocusable();
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+  cta?.addEventListener('click', () => {
+    try { localStorage.setItem(CONVERTED_KEY, '1'); } catch (e) {}
+  });
+
+  const delay = reduceMotion ? 100 : 3000;
+  setTimeout(openPopup, delay);
+})();
 </script>
 </body>
 </html>

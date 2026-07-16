@@ -103,6 +103,8 @@ export type ApplicationData = {
   website_url: string;
   processor: string;
   why_choose: string;
+  application_type?: string;
+  source_url?: string;
 };
 
 const PROCESSOR_LABELS: Record<string, string> = {
@@ -114,12 +116,13 @@ const PROCESSOR_LABELS: Record<string, string> = {
 
 function buildApplicationEmailBody(data: ApplicationData): string {
   return `
-New Payment Promo Application
+New Get Paid Online Inquiry
 ${"=".repeat(40)}
 
 BUSINESS
   Business:  ${data.business_name}
   Website:   ${data.website_url}
+  Type:      ${data.application_type || "get_paid_online"}
 
 CONTACT
   Name:      ${data.contact_name}
@@ -129,13 +132,16 @@ CONTACT
 PROCESSOR
   ${PROCESSOR_LABELS[data.processor] || data.processor}
 
-WHY SHOULD WE CHOOSE THIS BUSINESS?
+ABOUT THE BUSINESS
 ${data.why_choose}
+
+SOURCE
+  ${data.source_url || "—"}
 `.trim();
 }
 
 /**
- * Sends a payment promo application summary email via Resend.
+ * Sends a Get Paid Online inquiry summary email via Resend.
  * Reuses BOOKING_NOTIFICATION_EMAIL. Falls back to console.log if
  * BOOKING_NOTIFICATION_EMAIL or RESEND_API_KEY is not configured.
  */
@@ -143,7 +149,7 @@ export async function sendApplicationEmail(data: ApplicationData): Promise<void>
   const to = process.env.BOOKING_NOTIFICATION_EMAIL;
   const apiKey = process.env.RESEND_API_KEY;
   const body = buildApplicationEmailBody(data);
-  const subject = `Payment Promo Application: ${data.business_name} — ${data.contact_name}`;
+  const subject = `Payment Integration Inquiry: ${data.business_name} — ${data.contact_name}`;
 
   if (!to || !apiKey) {
     console.warn(

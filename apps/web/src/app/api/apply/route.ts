@@ -17,6 +17,8 @@ const ApplicationSchema = z.object({
   why_choose: z.string().min(10, "Tell us a bit more about your business"),
   source_url: z.string().optional(),
   user_agent: z.string().optional(),
+  application_type: z.string().optional(),
+  turnstile_token: z.string().optional(),
 });
 
 const PLACEHOLDER_PATTERNS = ["your-project", "your-anon-key", "your-"];
@@ -29,6 +31,56 @@ function supabaseAdmin() {
     return null;
   }
   return createClient(url, anonKey, { auth: { persistSession: false } });
+}
+
+async function verifyTurnstile(
+  token: string | undefined,
+  remoteIp: string | null
+): Promise<{ ok: boolean; message?: string }> {
+  const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
+
+  // Dev fallback when secret is not configured.
+  if (!secret) {
+    console.warn(
+      "[apply] TURNSTILE_SECRET_KEY not set — skipping CAPTCHA verification (dev only)."
+    );
+    return { ok: true };
+  }
+
+  if (!token) {
+    return { ok: false, message: "Please complete the verification challenge." };
+  }
+
+  try {
+    const body = new URLSearchParams();
+    body.set("secret", secret);
+    body.set("response", token);
+    if (remoteIp) body.set("remoteip", remoteIp);
+
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+      }
+    );
+    const data = (await res.json()) as { success?: boolean };
+
+    if (!data.success) {
+      return {
+        ok: false,
+        message: "Verification failed. Please try again.",
+      };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("[apply] Turnstile verify error:", err);
+    return {
+      ok: false,
+      message: "Verification unavailable. Please try again.",
+    };
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -53,10 +105,35 @@ export async function POST(req: NextRequest) {
 
   const data = result.data;
 
+  const ip =
+    req.headers.get("cf-connecting-ip") ||
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    null;
+
+  const captcha = await verifyTurnstile(data.turnstile_token, ip);
+  if (!captcha.ok) {
+    return NextResponse.json(
+      { ok: false, message: captcha.message ?? "Verification failed." },
+      { status: 400 }
+    );
+  }
+
+  const emailPayload = {
+    business_name: data.business_name,
+    contact_name: data.contact_name,
+    email: data.email,
+    phone: data.phone,
+    website_url: data.website_url,
+    processor: data.processor,
+    why_choose: data.why_choose,
+    application_type: data.application_type || "get_paid_online",
+    source_url: data.source_url,
+  };
+
   // Email first — it is the source of truth for the team inbox.
   let emailOk = true;
   try {
-    await sendApplicationEmail(data);
+    await sendApplicationEmail(emailPayload);
   } catch (err) {
     console.error("Email send error:", err);
     emailOk = false;
