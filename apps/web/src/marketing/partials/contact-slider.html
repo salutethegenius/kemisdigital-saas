@@ -1,0 +1,44 @@
+<div class="contact-slider-overlay" id="contactSliderOverlay" aria-hidden="true">
+  <aside class="contact-slider" id="contactSlider" role="dialog" aria-modal="true" aria-labelledby="contactSliderTitle">
+    <button type="button" class="contact-slider-close" id="contactSliderClose" aria-label="Close">&times;</button>
+    <div class="contact-slider-inner">
+      <div class="section-label">Get Started</div>
+      <h2 class="contact-slider-title" id="contactSliderTitle">Start the <span>Conversation.</span></h2>
+      <p class="contact-slider-sub">Tell us what you're trying to solve. We review every submission and respond within 48 hours.</p>
+      <form id="contactForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="contact_name">Your Name</label>
+            <input type="text" id="contact_name" name="contact_name" placeholder="First and last name" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="contact_email">Email Address</label>
+            <input type="email" id="contact_email" name="email" placeholder="you@yourbusiness.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="contact_phone">Phone Number</label>
+            <input type="tel" id="contact_phone" name="phone" placeholder="(242) 000-0000" autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="contact_business">Business / Company</label>
+            <input type="text" id="contact_business" name="business_name" placeholder="Your business name" required autocomplete="organization" />
+          </div>
+          <div class="form-group full">
+            <label for="contact_website">Website URL <span class="form-optional">(optional)</span></label>
+            <input type="text" id="contact_website" name="website_url" inputmode="url" placeholder="https://yourbusiness.com" autocomplete="url" />
+          </div>
+          <div class="form-group full">
+            <label for="contact_message">What are you trying to solve?</label>
+            <textarea id="contact_message" name="message" placeholder="Tell us about your project, systems, or goals." required></textarea>
+          </div>
+        </div>
+        <div class="turnstile-wrap" id="contactTurnstileWrap">
+          <!--TURNSTILE_WIDGET-->
+        </div>
+        <button type="submit" class="form-submit" id="contactSubmitBtn">Send Message →</button>
+        <p class="form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+        <p class="form-footer-note">We review every submission and respond within 48 hours.</p>
+      </form>
+    </div>
+  </aside>
+</div>

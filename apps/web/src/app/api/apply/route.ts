@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod/v4";
 import { createClient } from "@supabase/supabase-js";
 import { sendApplicationEmail } from "@/lib/email";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -31,56 +32,6 @@ function supabaseAdmin() {
     return null;
   }
   return createClient(url, anonKey, { auth: { persistSession: false } });
-}
-
-async function verifyTurnstile(
-  token: string | undefined,
-  remoteIp: string | null
-): Promise<{ ok: boolean; message?: string }> {
-  const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
-
-  // Dev fallback when secret is not configured.
-  if (!secret) {
-    console.warn(
-      "[apply] TURNSTILE_SECRET_KEY not set — skipping CAPTCHA verification (dev only)."
-    );
-    return { ok: true };
-  }
-
-  if (!token) {
-    return { ok: false, message: "Please complete the verification challenge." };
-  }
-
-  try {
-    const body = new URLSearchParams();
-    body.set("secret", secret);
-    body.set("response", token);
-    if (remoteIp) body.set("remoteip", remoteIp);
-
-    const res = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
-      }
-    );
-    const data = (await res.json()) as { success?: boolean };
-
-    if (!data.success) {
-      return {
-        ok: false,
-        message: "Verification failed. Please try again.",
-      };
-    }
-    return { ok: true };
-  } catch (err) {
-    console.error("[apply] Turnstile verify error:", err);
-    return {
-      ok: false,
-      message: "Verification unavailable. Please try again.",
-    };
-  }
 }
 
 export async function POST(req: NextRequest) {
@@ -114,7 +65,7 @@ export async function POST(req: NextRequest) {
   if (!captcha.ok) {
     return NextResponse.json(
       { ok: false, message: captcha.message ?? "Verification failed." },
-      { status: 400 }
+      { status: captcha.status ?? 400 }
     );
   }
 

@@ -172,3 +172,66 @@ export async function sendApplicationEmail(data: ApplicationData): Promise<void>
     console.error("[email] Resend send error (application):", error);
   }
 }
+
+export type ContactData = {
+  contact_name: string;
+  email: string;
+  phone?: string;
+  business_name: string;
+  website_url?: string;
+  message: string;
+  source_url?: string;
+};
+
+function buildContactEmailBody(data: ContactData): string {
+  return `
+New Contact Inquiry
+${"=".repeat(40)}
+
+CONTACT
+  Name:      ${data.contact_name}
+  Email:     ${data.email}
+  Phone:     ${data.phone || "—"}
+  Business:  ${data.business_name}
+  Website:   ${data.website_url || "—"}
+
+MESSAGE
+${data.message}
+
+SOURCE
+  ${data.source_url || "—"}
+`.trim();
+}
+
+/**
+ * Sends a general contact inquiry via Resend.
+ * Reuses BOOKING_NOTIFICATION_EMAIL.
+ */
+export async function sendContactEmail(data: ContactData): Promise<void> {
+  const to = process.env.BOOKING_NOTIFICATION_EMAIL;
+  const apiKey = process.env.RESEND_API_KEY;
+  const body = buildContactEmailBody(data);
+  const subject = `Contact Inquiry: ${data.business_name} — ${data.contact_name}`;
+
+  if (!to || !apiKey) {
+    console.warn(
+      `[email] Missing ${!to ? "BOOKING_NOTIFICATION_EMAIL" : "RESEND_API_KEY"} — printing to console:\n\n` +
+        body
+    );
+    return;
+  }
+
+  const { Resend } = await import("resend");
+  const resend = new Resend(apiKey);
+  const { error } = await resend.emails.send({
+    from: "KemisDigital <noreply@kemisdigital.com>",
+    to,
+    subject,
+    text: body,
+  });
+
+  if (error) {
+    console.error("[email] Resend send error (contact):", error);
+    throw new Error("Failed to send contact email");
+  }
+}
