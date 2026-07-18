@@ -17,11 +17,14 @@ if (canvas) {
     { id: 'PI', label: 'PileIt', sub: 'Streaming', x: 0.85, y: 0.68, r: 17, color: '#0047FF' },
     { id: 'GB', label: 'GrandBridge', sub: 'Commerce', x: 0.35, y: 0.82, r: 16, color: '#00C896' },
     { id: 'KR', label: 'KRM Desk', sub: 'Operations', x: 0.68, y: 0.18, r: 17, color: '#0047FF' },
+    { id: 'KD', label: 'KemisDisplay', sub: 'Signage', x: 0.22, y: 0.48, r: 16, color: '#FF4500' },
+    { id: 'VF', label: 'VerityField', sub: 'Field Ops', x: 0.78, y: 0.48, r: 16, color: '#00C896' },
+    { id: 'VO', label: 'VerityOS', sub: 'AI', x: 0.5, y: 0.18, r: 17, color: '#6200FF' },
   ];
 
   const edges = [
-    [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],
-    [1,6],[3,6],[5,1],[3,1]
+    [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],
+    [1,6],[3,6],[5,1],[3,1],[7,1],[8,6],[9,2]
   ];
 
   let hovered = null;
