@@ -1,0 +1,39 @@
+<nav>
+  <a href="/" class="nav-logo">
+    <svg class="nav-logo-mark" width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0"  y="4"  width="36" height="9"  rx="2.5" fill="#FF4500"/>
+      <rect x="0"  y="18" width="28" height="9"  rx="2.5" fill="#0047FF"/>
+      <rect x="0"  y="32" width="18" height="9"  rx="2.5" fill="#FF4500" opacity="0.35"/>
+      <text x="50" y="30" font-family="'Barlow Condensed', sans-serif" font-size="24" font-weight="800" fill="#EDECEA" letter-spacing="0.5">
+        Kemis<tspan fill="#FF4500">Digital</tspan>
+      </text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/" data-nav="home">Home</a></li>
+    <li><a href="/products" data-nav="products">Products</a></li>
+    <li><a href="/capabilities" data-nav="capabilities">Capabilities</a></li>
+    <li><a href="/process" data-nav="process">Process</a></li>
+    <li><a href="/work" data-nav="work">Work</a></li>
+    <li><a href="/contact" data-nav="contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button type="button" class="nav-cta" data-open-contact>Start Building →</button>
+    <button type="button" class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-drawer-overlay" id="mobileDrawerOverlay" hidden></div>
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <ul class="mobile-drawer-links">
+    <li><a href="/" data-nav="home">Home</a></li>
+    <li><a href="/products" data-nav="products">Products</a></li>
+    <li><a href="/capabilities" data-nav="capabilities">Capabilities</a></li>
+    <li><a href="/process" data-nav="process">Process</a></li>
+    <li><a href="/work" data-nav="work">Work</a></li>
+    <li><a href="/contact" data-nav="contact">Contact</a></li>
+  </ul>
+  <button type="button" class="nav-cta mobile-drawer-cta" data-open-contact>Start Building →</button>
+</div>

@@ -1,23 +1,22 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
+import { turnstileWidgetHtml } from "@/lib/turnstile";
 
 export async function GET() {
-  const filePath = path.join(process.cwd(), 'src', 'app', 'payments.html');
+  const filePath = path.join(process.cwd(), "src", "app", "payments.html");
 
-  let html = await fs.promises.readFile(filePath, 'utf8');
+  let html = await fs.promises.readFile(filePath, "utf8");
 
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
-  const widget = siteKey
-    ? `<div class="cf-turnstile" data-sitekey="${siteKey}" data-theme="dark"></div>`
-    : '<!-- Turnstile not configured: set NEXT_PUBLIC_TURNSTILE_SITE_KEY -->';
-
-  html = html.replace('<!--TURNSTILE_WIDGET-->', widget);
+  html = html.replace(
+    "<!--TURNSTILE_WIDGET-->",
+    turnstileWidgetHtml(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY),
+  );
 
   return new NextResponse(html, {
     status: 200,
     headers: {
-      'content-type': 'text/html; charset=utf-8',
+      "content-type": "text/html; charset=utf-8",
     },
   });
 }

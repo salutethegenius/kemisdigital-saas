@@ -6,10 +6,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: `${SITE_URL}/v2`,
+      url: `${SITE_URL}/`,
       lastModified,
       changeFrequency: "monthly",
       priority: 1.0,
+    },
+    {
+      url: `${SITE_URL}/products`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/capabilities`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/process`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/work`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/contact`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/apply`,
