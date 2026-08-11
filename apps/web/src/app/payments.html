@@ -666,6 +666,88 @@ section { position: relative; z-index: 1; }
   font-weight: 300;
 }
 
+.featured-winner {
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
+}
+.featured-inner { max-width: 1200px; margin: 0 auto; }
+.featured-sub {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-top: 12px;
+  max-width: 640px;
+}
+.featured-shots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 56px;
+}
+.featured-shot {
+  margin: 0;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.featured-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.featured-shot figcaption {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}
+.featured-quote {
+  margin: 40px 0 0;
+  border-left: 3px solid var(--orange);
+  background: var(--bg-2);
+  padding: 40px 44px;
+}
+.featured-quote p {
+  font-size: 16px;
+  color: var(--ink-2);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 900px;
+}
+.featured-attribution {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+.featured-attribution img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  background: #F9F4E8;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.featured-attribution div { display: flex; flex-direction: column; gap: 2px; }
+.featured-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+}
+.featured-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
 .form-section {
   padding: 120px 48px;
   border-top: 1px solid var(--border);
@@ -876,6 +958,9 @@ footer {
   .pick-num { font-size: 40px; }
   .trusted { padding: 80px 20px; }
   .trusted-grid { grid-template-columns: 1fr; }
+  .featured-winner { padding: 80px 20px; }
+  .featured-shots { grid-template-columns: 1fr; }
+  .featured-quote { padding: 28px 24px; }
   .form-section { padding: 80px 20px; }
   .form-grid { grid-template-columns: 1fr; }
   footer { padding: 40px 20px 30px; }
@@ -1083,26 +1168,50 @@ footer {
     <h2 class="section-title">Bahamian Organisations<br>Working With Us Now.</h2>
     <div class="trusted-grid">
       <div class="trusted-card">
-        <div class="trusted-status">Live — Payment Integration</div>
-        <h4>Urban Nassau Rides</h4>
-        <p>Delivery and messenger company, Nassau. Online payments fully integrated and live.</p>
-      </div>
-      <div class="trusted-card">
         <div class="trusted-status">Live — Members Portal</div>
         <h4>Bahamas Association of Compliance Officers</h4>
         <p>Full members portal, built and running. Branded to their organisation, not to ours.</p>
       </div>
       <div class="trusted-card">
-        <div class="trusted-status">Launching Imminently</div>
+        <div class="trusted-status">Live — Custom Website</div>
         <h4>Bahamas Central Securities Depository</h4>
-        <p>Full website build, launching imminently.</p>
+        <p>Full website build, plus admin dashboard management.</p>
       </div>
       <div class="trusted-card">
-        <div class="trusted-status">In Development</div>
-        <h4>Downtown Freeport Business Association</h4>
-        <p>Business directory portal for downtown Freeport, currently in development.</p>
+        <div class="trusted-status">Live — Grand Bahama Business Directory</div>
+        <h4>Grand Bahama Local</h4>
+        <p>Powered by: Downtown Freeport Business Association. Business directory portal for Grand Bahamas.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- FEATURED WINNER -->
+<section class="featured-winner reveal">
+  <div class="featured-inner">
+    <div class="section-label">Independence Giveaway · Winner</div>
+    <h2 class="section-title">Live With<br>Calabash Studio.</h2>
+    <p class="featured-sub">Winner of our July 10 Independence Day giveaway — now taking online payments through their own branded portal.</p>
+    <div class="featured-shots">
+      <figure class="featured-shot wipe">
+        <img src="/calabash-login.jpg" alt="Calabash Studio branded payment portal login screen" loading="lazy" />
+        <figcaption>Branded client login</figcaption>
+      </figure>
+      <figure class="featured-shot wipe">
+        <img src="/calabash-dashboard.jpg" alt="Calabash Studio payments dashboard showing invoices and payment links" loading="lazy" />
+        <figcaption>Payments dashboard</figcaption>
+      </figure>
+    </div>
+    <blockquote class="featured-quote wipe">
+      <p>&ldquo;We had a great experience with KemisDigital. They made it possible for me to accept online payments through my website and made the entire setup process simple and straightforward. Before working with them, we were trying to figure everything out on our own and kept getting stuck on different parts of the process. Kenneth took a lot of the guesswork out of it, answered the questions we had, and helped us get everything set up properly. The process was easy, and I&rsquo;m very satisfied with the result. We would definitely recommend KemisDigital to anyone looking for help setting up online payments for their website.&rdquo;</p>
+      <footer class="featured-attribution">
+        <img src="/calabash-logo.png" alt="Calabash Studio logo" loading="lazy" />
+        <div>
+          <span class="featured-name">Antonio</span>
+          <span class="featured-role">President — Calabash Studio</span>
+        </div>
+      </footer>
+    </blockquote>
   </div>
 </section>
 
