@@ -537,7 +537,7 @@ section { position: relative; z-index: 1; }
 }
 .capabilities-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1px;
   background: var(--border);
   margin-top: 60px;
@@ -597,6 +597,11 @@ section { position: relative; z-index: 1; }
   color: #a78bfa;
   border-color: rgba(98, 0, 255, 0.4);
   background: rgba(98, 0, 255, 0.1);
+}
+.cap-card:nth-child(4) .cap-tag {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.1);
 }
 
 /* PROCESS */
@@ -1013,15 +1018,32 @@ footer {
   transition: color 0.2s;
 }
 .gpo-dismiss:hover { color: var(--ink-2); }
+.gpo-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: 0.5;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
 body.gpo-locked { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .gpo-overlay, .gpo-card { transition: none; }
   .gpo-overlay .gpo-card { transform: none; }
 }
 @media (max-width: 900px) {
+  .gpo-overlay { padding-bottom: 52px; }
   .gpo-card { padding: 32px 24px 28px; }
   .gpo-close { cursor: pointer; }
   .gpo-cta, .gpo-dismiss { cursor: pointer; }
+  .gpo-hint { white-space: normal; text-align: center; bottom: 16px; }
 }
 
 /* SCROLL REVEAL */
