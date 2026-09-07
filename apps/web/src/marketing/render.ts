@@ -110,7 +110,12 @@ export function renderMarketingPage(
     )
     .join("\n");
 
-  const bodyClass = preloader ? "" : "instant-nav";
+  const classes = [];
+  if (!preloader) classes.push("instant-nav");
+  if (id === "web-clinic" || id === "web-clinic-agreement") {
+    classes.push("clinic-page");
+  }
+  const bodyClass = classes.join(" ");
 
   const html = `<!DOCTYPE html>
 <html lang="en">
