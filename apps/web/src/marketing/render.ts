@@ -13,14 +13,16 @@ export type MarketingPageId =
   | "process"
   | "work"
   | "contact"
-  | "privacy";
+  | "privacy"
+  | "web-clinic"
+  | "web-clinic-agreement";
 
 export type MarketingPageOptions = {
   id: MarketingPageId;
   title: string;
   description: string;
   path: string;
-  scripts?: Array<"home" | "products">;
+  scripts?: Array<"home" | "products" | "web-clinic">;
   preloader?: boolean;
   gpoPopup?: boolean;
   jsonLd?: object | object[];
@@ -38,15 +40,30 @@ function escapeAttr(value: string): string {
 }
 
 function markActiveNav(html: string, pageId: MarketingPageId): string {
+  const activeId = pageId === "web-clinic-agreement" ? "web-clinic" : pageId;
   return html.replace(
     /(<a href="[^"]*" data-nav=")([^"]*)(">)/g,
     (match, prefix, navId, suffix) => {
-      if (navId === pageId) {
+      if (navId === activeId) {
         return `${prefix}${navId}" aria-current="page${suffix}`;
       }
       return match;
     },
   );
+}
+
+function customizeNav(html: string, pageId: MarketingPageId): string {
+  let next = markActiveNav(html, pageId);
+  if (pageId !== "web-clinic") return next;
+  next = next.replaceAll(
+    `<button type="button" class="nav-cta" data-open-contact>Start Building →</button>`,
+    `<a href="#review" class="nav-cta">Request Review →</a>`,
+  );
+  next = next.replaceAll(
+    `<button type="button" class="nav-cta mobile-drawer-cta" data-open-contact>Start Building →</button>`,
+    `<a href="#review" class="nav-cta mobile-drawer-cta">Request a Free Digital Review</a>`,
+  );
+  return next;
 }
 
 export function renderMarketingPage(
@@ -66,9 +83,13 @@ export function renderMarketingPage(
   const canonical = `${SITE_URL}${pagePath === "/" ? "/" : pagePath}`;
   const ogImage = `${SITE_URL}${SITE_OG_IMAGE}`;
   const styles = readMarketing("styles.css");
-  const nav = markActiveNav(readMarketing("partials/nav.html"), id);
+  const nav = customizeNav(readMarketing("partials/nav.html"), id);
   const footer = readMarketing("partials/footer.html");
-  const body = readMarketing(`pages/${id}.html`);
+  let body = readMarketing(`pages/${id}.html`);
+  body = body.replaceAll(
+    "<!--TURNSTILE_WIDGET-->",
+    turnstileWidgetHtml(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY),
+  );
   const commonJs = readMarketing("scripts/common.js");
   const contactJs = readMarketing("scripts/contact.js");
 

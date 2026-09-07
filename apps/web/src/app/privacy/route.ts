@@ -5,7 +5,7 @@ export async function GET() {
     id: "privacy",
     title: "Privacy Policy",
     description:
-      "How KemisDigital collects, uses, and protects information shared through kemisdigital.com and our contact and application forms.",
+      "How KemisDigital collects, uses, and protects information shared through kemisdigital.com and our contact, Web Clinic, and application forms.",
     path: "/privacy",
   });
 }

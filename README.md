@@ -18,6 +18,7 @@ The repo started from the Golden Starter template but is now a dedicated project
   - Ecosystem section showcasing active products (KemisPay, KRM Desk, GB Rewards, etc.)
   - Case studies and process (“How we work”)
   - Mobile/tablet responsive layout with hamburger nav
+- **Web Clinic** (`/web-clinic`): Grand Bahama Business Launch offer with package cards, digital-review intake, and a draft agreement page
 - **Strategy session booking form**:
   - Rich intake form with checkboxes and summary sidebar
   - Server action writes to Supabase `strategy_sessions` table
