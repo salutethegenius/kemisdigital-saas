@@ -1648,9 +1648,9 @@ body.instant-nav .clinic-proof {
   max-width: 620px;
 }
 .clinic-hero .hero-stat-label {
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  color: var(--ink);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
   font-weight: 500;
 }
 .clinic-proof {
@@ -1974,15 +1974,15 @@ body.instant-nav .clinic-proof {
 }
 .clinic-form .form-group label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.06em;
+  font-size: 16px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #FFFFFF;
   font-weight: 500;
 }
 .clinic-form .form-optional {
-  color: #C8C6C2;
-  font-size: 14px;
+  color: #E0E0E0;
+  font-size: 16px;
 }
 .clinic-form .form-group input,
 .clinic-form .form-group textarea {
@@ -1993,14 +1993,14 @@ body.instant-nav .clinic-proof {
 }
 .clinic-form .form-group input::placeholder,
 .clinic-form .form-group textarea::placeholder {
-  color: #B8B6B2;
+  color: #D6D6D6;
 }
 .clinic-pkg-legend {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.06em;
+  font-size: 16px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #FFFFFF;
   font-weight: 500;
   display: block;
   margin-bottom: 10px;
@@ -2101,8 +2101,9 @@ body.instant-nav .clinic-proof {
 #terms { scroll-margin-top: 88px; }
 
 body.clinic-page {
-  --ink-2: #E8E6E2;
-  --ink-3: #D4D2CE;
+  --ink: #FFFFFF;
+  --ink-2: #FFFFFF;
+  --ink-3: #F2F2F2;
   -webkit-text-size-adjust: 100%;
 }
 body.clinic-page .tension-point-text {
