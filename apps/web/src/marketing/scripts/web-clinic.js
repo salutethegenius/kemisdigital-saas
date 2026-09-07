@@ -60,7 +60,9 @@
         const widget = document.querySelector('#clinicTurnstileWrap .cf-turnstile');
         if (widget) turnstile.reset(widget);
         else turnstile.reset();
-      } catch (e) {}
+      } catch {
+        /* ignore */
+      }
     }
   }
 
@@ -126,7 +128,7 @@
       form.reset();
       selectPackage('unsure');
       resetTurnstile();
-    } catch (err) {
+    } catch {
       statusEl.textContent = 'Something went wrong. Please try again.';
       statusEl.classList.add('is-error');
       resetTurnstile();
