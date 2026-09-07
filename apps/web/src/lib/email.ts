@@ -235,3 +235,78 @@ export async function sendContactEmail(data: ContactData): Promise<void> {
     throw new Error("Failed to send contact email");
   }
 }
+
+export type WebClinicData = {
+  contact_name: string;
+  email: string;
+  phone?: string;
+  business_name: string;
+  website_url?: string;
+  package: string;
+  message: string;
+  source_url?: string;
+};
+
+const CLINIC_PACKAGE_LABELS: Record<string, string> = {
+  display: "Display — B$500 + B$125/month",
+  commerce: "Commerce — B$750 to B$1,000 + B$175 to B$250/month",
+  platform: "Business Platform — B$1,500+ + B$300+/month",
+  unsure: "Not sure yet",
+};
+
+function buildWebClinicEmailBody(data: WebClinicData): string {
+  return `
+New Web Clinic Digital Review
+${"=".repeat(40)}
+
+BUSINESS
+  Business:  ${data.business_name}
+  Website:   ${data.website_url || "—"}
+  Package:   ${CLINIC_PACKAGE_LABELS[data.package] || data.package}
+
+CONTACT
+  Name:      ${data.contact_name}
+  Email:     ${data.email}
+  Phone:     ${data.phone || "—"}
+
+HOW THE BUSINESS CURRENTLY WORKS
+${data.message}
+
+SOURCE
+  ${data.source_url || "—"}
+`.trim();
+}
+
+/**
+ * Sends a Web Clinic / Grand Bahama Business Launch review request via Resend.
+ * Reuses BOOKING_NOTIFICATION_EMAIL.
+ */
+export async function sendWebClinicEmail(data: WebClinicData): Promise<void> {
+  const to = process.env.BOOKING_NOTIFICATION_EMAIL;
+  const apiKey = process.env.RESEND_API_KEY;
+  const body = buildWebClinicEmailBody(data);
+  const packageLabel = CLINIC_PACKAGE_LABELS[data.package] || data.package;
+  const subject = `Web Clinic Review: ${data.business_name} — ${data.contact_name} (${packageLabel})`;
+
+  if (!to || !apiKey) {
+    console.warn(
+      `[email] Missing ${!to ? "BOOKING_NOTIFICATION_EMAIL" : "RESEND_API_KEY"} — printing to console:\n\n` +
+        body
+    );
+    return;
+  }
+
+  const { Resend } = await import("resend");
+  const resend = new Resend(apiKey);
+  const { error } = await resend.emails.send({
+    from: "KemisDigital <noreply@kemisdigital.com>",
+    to,
+    subject,
+    text: body,
+  });
+
+  if (error) {
+    console.error("[email] Resend send error (web-clinic):", error);
+    throw new Error("Failed to send Web Clinic email");
+  }
+}
