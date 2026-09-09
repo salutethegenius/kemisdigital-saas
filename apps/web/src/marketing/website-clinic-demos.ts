@@ -3,7 +3,7 @@
  *
  * Drop replacement screenshots in place (keep filenames and 16:10 ratio):
  *   apps/web/public/web-clinic/previews/{id}.jpg
- * Recommended crop: navigation + hero + the start of the next section, 1280×800.
+ * Recommended crop: navigation + hero + the start of the next section, 1600×1000.
  * Do not stretch or letterbox the captures.
  */
 
@@ -31,8 +31,8 @@ export type WebsiteClinicDemo = {
 };
 
 export const WEBSITE_CLINIC_PREVIEW_SIZE = {
-  width: 1280,
-  height: 800,
+  width: 1600,
+  height: 1000,
 } as const;
 
 const PREVIEW_DIR = "/web-clinic/previews";
