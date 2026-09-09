@@ -244,6 +244,8 @@ export type WebClinicData = {
   website_url?: string;
   package: string;
   message: string;
+  concept_id?: string;
+  concept_label?: string;
   source_url?: string;
 };
 
@@ -263,6 +265,7 @@ BUSINESS
   Business:  ${data.business_name}
   Website:   ${data.website_url || "—"}
   Package:   ${CLINIC_PACKAGE_LABELS[data.package] || data.package}
+  Concept:   ${data.concept_label ? `${data.concept_label} (${data.concept_id})` : "—"}
 
 CONTACT
   Name:      ${data.contact_name}

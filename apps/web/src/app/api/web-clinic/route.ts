@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod/v4";
 import { sendWebClinicEmail } from "@/lib/email";
 import { verifyTurnstile } from "@/lib/turnstile";
+import {
+  WEBSITE_CLINIC_DEMO_IDS,
+  clinicDemoLabel,
+} from "@/marketing/website-clinic-demos";
 
 export const runtime = "nodejs";
 
@@ -24,6 +28,10 @@ const WebClinicSchema = z.object({
   terms_ack: z.literal(true, {
     error: "Please confirm you understand this is a review request, not a signed agreement.",
   }),
+  concept_id: z.preprocess(
+    (value) => (value === "" || value == null ? undefined : value),
+    z.enum(WEBSITE_CLINIC_DEMO_IDS).optional(),
+  ),
   source_url: z.string().optional(),
   user_agent: z.string().optional(),
   turnstile_token: z.string().optional(),
@@ -73,6 +81,8 @@ export async function POST(req: NextRequest) {
       website_url: data.website_url,
       package: data.package,
       message: data.message,
+      concept_id: data.concept_id,
+      concept_label: clinicDemoLabel(data.concept_id),
       source_url: data.source_url,
     });
   } catch (err) {

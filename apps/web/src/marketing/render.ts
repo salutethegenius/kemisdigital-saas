@@ -3,6 +3,10 @@ import fs from "fs";
 import path from "path";
 import { SITE_URL, SITE_NAME, SITE_OG_IMAGE } from "@/lib/site";
 import { turnstileWidgetHtml } from "@/lib/turnstile";
+import {
+  renderHeroDemoPreview,
+  renderWebsiteDemosSection,
+} from "./website-clinic-demos";
 
 const marketingDir = path.join(process.cwd(), "src", "marketing");
 
@@ -90,6 +94,13 @@ export function renderMarketingPage(
     "<!--TURNSTILE_WIDGET-->",
     turnstileWidgetHtml(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY),
   );
+  if (id === "web-clinic") {
+    body = body.replace("<!--CLINIC_HERO_PREVIEW-->", renderHeroDemoPreview());
+    body = body.replace(
+      "<!--CLINIC_DEMO_GALLERY-->",
+      renderWebsiteDemosSection(),
+    );
+  }
   const commonJs = readMarketing("scripts/common.js");
   const contactJs = readMarketing("scripts/contact.js");
 

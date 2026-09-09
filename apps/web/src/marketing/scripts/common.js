@@ -14,7 +14,7 @@ if (cursor && cursorRing) {
     requestAnimationFrame(animateRing);
   }
   animateRing();
-  document.querySelectorAll('a, button, .product-card, .tension-point, .clinic-pkg, .clinic-chip').forEach(el => {
+  document.querySelectorAll('a, button, .product-card, .tension-point, .clinic-pkg, .clinic-chip, .clinic-demo-card').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursorRing.style.width = '48px';
       cursorRing.style.height = '48px';

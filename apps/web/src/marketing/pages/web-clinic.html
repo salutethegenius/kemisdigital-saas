@@ -12,40 +12,45 @@
     <polygon points="1050,580 1090,520 1130,580" fill="#0047FF" opacity="0.04"/>
   </svg>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow">Grand Bahama Business Launch</div>
-    <h1 class="hero-h1 clinic-hero-h1">
-      See your new<br>
-      <span class="accent-o">website</span><br>
-      before you<br>
-      <span class="accent-b">buy it.</span>
-    </h1>
-    <p class="hero-sub">Modern websites and business platforms for Grand Bahama businesses, starting from B$500.</p>
-    <p class="clinic-proof">No setup fee until you approve the build for launch.</p>
-    <div class="hero-actions">
-      <a href="#review" class="btn-primary">Request a Free Digital Review</a>
-      <a href="/work" class="btn-ghost">See Our Work</a>
+  <div class="clinic-hero-layout">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Grand Bahama Business Launch</div>
+      <h1 class="hero-h1 clinic-hero-h1">
+        See your new<br>
+        <span class="accent-o">website</span><br>
+        before you<br>
+        <span class="accent-b">buy it.</span>
+      </h1>
+      <p class="hero-sub">Modern websites and business platforms for Grand Bahama businesses, starting from B$500.</p>
+      <p class="clinic-proof">No setup fee until you approve the build for launch.</p>
+      <div class="hero-actions">
+        <a href="#review" class="btn-primary">Request a Free Digital Review</a>
+        <a href="#website-demos" class="btn-ghost">See Our Work</a>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-val o">B$500</div>
-        <div class="hero-stat-label">Starting setup</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val b">3</div>
-        <div class="hero-stat-label">Launch packages</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val p">GB</div>
-        <div class="hero-stat-label">Built for Grand Bahama</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val g">20+</div>
-        <div class="hero-stat-label">Years local</div>
-      </div>
+    <!--CLINIC_HERO_PREVIEW-->
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val o">B$500</div>
+      <div class="hero-stat-label">Starting setup</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val b">3</div>
+      <div class="hero-stat-label">Launch packages</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val p">GB</div>
+      <div class="hero-stat-label">Built for Grand Bahama</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val g">20+</div>
+      <div class="hero-stat-label">Years local</div>
     </div>
   </div>
 </section>
+
+<!--CLINIC_DEMO_GALLERY-->
 
 <!-- APPROACH -->
 <section class="tension reveal" id="approach">
@@ -397,6 +402,13 @@
       <div class="form-group full">
         <label for="clinic_website">Current website <span class="form-optional">(optional)</span></label>
         <input type="text" id="clinic_website" name="website_url" inputmode="url" placeholder="https://yourbusiness.com" autocomplete="url" />
+      </div>
+      <div class="form-group full clinic-concept-wrap">
+        <input type="hidden" name="concept_id" id="clinic_concept_id" value="" />
+        <div class="clinic-concept-chip" id="clinicConceptChip" hidden>
+          <p>We’ll note you came from the <strong id="clinicConceptLabel"></strong> concept. Package interest stays as you set it.</p>
+          <button type="button" class="clinic-concept-clear" id="clinicConceptClear">Clear</button>
+        </div>
       </div>
       <div class="form-group full">
         <span class="clinic-pkg-legend" id="clinic_package_legend">Package interest</span>
