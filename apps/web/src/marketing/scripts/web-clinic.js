@@ -1,3 +1,81 @@
+(function initHeroPreviewShuffle() {
+  const preview = document.querySelector('.clinic-hero-preview');
+  const stage = preview?.querySelector('.clinic-hero-stage');
+  const cards = stage
+    ? Array.from(stage.querySelectorAll('[data-hero-card]'))
+    : [];
+  if (!preview || !stage || cards.length < 2) return;
+
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const slots = ['fore', 'left', 'mid', 'right'];
+  const slotClasses = slots.map((slot) => `clinic-browser--${slot}`);
+  const pauseReasons = new Set();
+  let front = 0;
+  let timer = 0;
+
+  function applySlots() {
+    const total = cards.length;
+    cards.forEach((card) => {
+      const index = Number(card.getAttribute('data-hero-card'));
+      const rel = (index - front + total) % total;
+      const slot = slots[rel] || 'fore';
+      card.classList.remove(...slotClasses, 'clinic-browser--rear');
+      card.classList.add(`clinic-browser--${slot}`);
+      if (slot !== 'fore') card.classList.add('clinic-browser--rear');
+    });
+  }
+
+  function stopTimer() {
+    window.clearTimeout(timer);
+    timer = 0;
+  }
+
+  function schedule() {
+    stopTimer();
+    if (motionQuery.matches || pauseReasons.size || document.hidden) return;
+    timer = window.setTimeout(() => {
+      front = (front + 1) % cards.length;
+      applySlots();
+      schedule();
+    }, 4200);
+  }
+
+  function pause(reason) {
+    pauseReasons.add(reason);
+    stopTimer();
+  }
+
+  function resume(reason) {
+    pauseReasons.delete(reason);
+    schedule();
+  }
+
+  function syncMotion() {
+    if (motionQuery.matches) {
+      stage.classList.remove('is-shuffling');
+      stopTimer();
+      return;
+    }
+    stage.classList.add('is-shuffling');
+    schedule();
+  }
+
+  preview.addEventListener('mouseenter', () => pause('hover'));
+  preview.addEventListener('mouseleave', () => resume('hover'));
+  preview.addEventListener('focusin', () => pause('focus'));
+  preview.addEventListener('focusout', () => resume('focus'));
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) pause('page');
+    else resume('page');
+  });
+  if (motionQuery.addEventListener) {
+    motionQuery.addEventListener('change', syncMotion);
+  } else {
+    motionQuery.addListener(syncMotion);
+  }
+  syncMotion();
+})();
+
 (function initWebClinic() {
   const form = document.getElementById('clinicForm');
   const statusEl = document.getElementById('clinicFormStatus');

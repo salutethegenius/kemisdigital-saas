@@ -136,9 +136,9 @@ function previewImg(
   return `<img src="${escapeHtml(demo.previewImage)}" alt="${escapeHtml(options.alt)}" width="${demo.previewWidth}" height="${demo.previewHeight}" loading="${options.loading}" decoding="async"${priority} sizes="${escapeHtml(options.sizes)}" style="object-position:${escapeHtml(demo.previewPosition)}">`;
 }
 
-function browserFrame(inner: string, extraClass = ""): string {
+function browserFrame(inner: string, extraClass = "", extraAttrs = ""): string {
   const cls = extraClass ? ` ${extraClass}` : "";
-  return `<div class="clinic-browser${cls}">
+  return `<div class="clinic-browser${cls}"${extraAttrs}>
       <div class="clinic-browser-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
       <div class="clinic-browser-screen">${inner}</div>
     </div>`;
@@ -192,6 +192,7 @@ export function renderHeroDemoPreview(): string {
             sizes: heroSizes,
           }),
           "clinic-browser--rear clinic-browser--left",
+          ' data-hero-card="1"',
         )}
         ${browserFrame(
           previewImg(rearMid, {
@@ -200,6 +201,7 @@ export function renderHeroDemoPreview(): string {
             sizes: heroSizes,
           }),
           "clinic-browser--rear clinic-browser--mid",
+          ' data-hero-card="2"',
         )}
         ${browserFrame(
           previewImg(rearRight, {
@@ -208,6 +210,7 @@ export function renderHeroDemoPreview(): string {
             sizes: heroSizes,
           }),
           "clinic-browser--rear clinic-browser--right",
+          ' data-hero-card="3"',
         )}
         ${browserFrame(
           previewImg(foreground, {
@@ -217,6 +220,7 @@ export function renderHeroDemoPreview(): string {
             sizes: heroSizes,
           }),
           "clinic-browser--fore",
+          ' data-hero-card="0"',
         )}
       </div>
     </a>`;
