@@ -100,6 +100,7 @@ export const WEBSITE_CLINIC_DEMOS: readonly WebsiteClinicDemo[] = [
 
 const HERO_FOREGROUND_ID: WebsiteClinicDemoId = "ocean-reef";
 const HERO_REAR_LEFT_ID: WebsiteClinicDemoId = "budget-pest-control";
+const HERO_REAR_MID_ID: WebsiteClinicDemoId = "castaways-resort";
 const HERO_REAR_RIGHT_ID: WebsiteClinicDemoId = "betty-k";
 
 function escapeHtml(value: string): string {
@@ -178,6 +179,7 @@ export function renderDemoShowcaseCard(demo: WebsiteClinicDemo): string {
 export function renderHeroDemoPreview(): string {
   const foreground = demoById(HERO_FOREGROUND_ID);
   const rearLeft = demoById(HERO_REAR_LEFT_ID);
+  const rearMid = demoById(HERO_REAR_MID_ID);
   const rearRight = demoById(HERO_REAR_RIGHT_ID);
   const heroSizes = "(min-width: 900px) 38vw, 100vw";
 
@@ -186,15 +188,23 @@ export function renderHeroDemoPreview(): string {
         ${browserFrame(
           previewImg(rearLeft, {
             alt: "",
-            loading: "lazy",
+            loading: "eager",
             sizes: heroSizes,
           }),
           "clinic-browser--rear clinic-browser--left",
         )}
         ${browserFrame(
+          previewImg(rearMid, {
+            alt: "",
+            loading: "eager",
+            sizes: heroSizes,
+          }),
+          "clinic-browser--rear clinic-browser--mid",
+        )}
+        ${browserFrame(
           previewImg(rearRight, {
             alt: "",
-            loading: "lazy",
+            loading: "eager",
             sizes: heroSizes,
           }),
           "clinic-browser--rear clinic-browser--right",

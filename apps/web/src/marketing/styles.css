@@ -1721,7 +1721,7 @@ body.clinic-page .nav-cta:focus-visible {
 .clinic-hero-stage {
   position: relative;
   height: 0;
-  padding-bottom: 78%;
+  padding-bottom: 82%;
   overflow: hidden;
 }
 .clinic-hero-stage .clinic-browser {
@@ -1767,26 +1767,34 @@ body.clinic-page .nav-cta:focus-visible {
   object-fit: cover;
 }
 .clinic-hero-stage .clinic-browser--left {
-  width: 54%;
-  top: 6%;
+  width: 42%;
+  top: 16%;
   left: 0;
   z-index: 1;
-  transform: rotate(-2.2deg);
-  opacity: 0.78;
+  transform: rotate(-2deg);
+  opacity: 0.9;
+}
+.clinic-hero-stage .clinic-browser--mid {
+  width: 44%;
+  top: 0;
+  left: 48%;
+  z-index: 2;
+  transform: rotate(1.5deg);
+  opacity: 0.92;
 }
 .clinic-hero-stage .clinic-browser--right {
-  width: 50%;
-  top: 28%;
+  width: 42%;
+  top: 50%;
   right: 0;
-  z-index: 2;
+  z-index: 3;
   transform: rotate(2deg);
-  opacity: 0.72;
+  opacity: 0.92;
 }
 .clinic-hero-stage .clinic-browser--fore {
-  width: 74%;
-  top: 16%;
-  left: 13%;
-  z-index: 3;
+  width: 64%;
+  top: 18%;
+  left: 14%;
+  z-index: 4;
   box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 69, 0, 0.28);
 }
 .clinic-hero-preview:hover .clinic-browser--fore {
@@ -1941,15 +1949,22 @@ body.clinic-page .nav-cta:focus-visible {
     display: none;
   }
   .clinic-hero-stage .clinic-browser--left {
-    width: 46%;
-    top: 18%;
+    width: 44%;
+    top: 20%;
     transform: none;
     opacity: 0.55;
+  }
+  .clinic-hero-stage .clinic-browser--mid {
+    width: 48%;
+    top: 0;
+    left: 40%;
+    transform: none;
+    opacity: 0.7;
   }
   .clinic-hero-stage .clinic-browser--fore {
     width: 82%;
     left: 16%;
-    top: 10%;
+    top: 12%;
   }
 }
 
@@ -2012,6 +2027,7 @@ body.clinic-page .nav-cta:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .clinic-hero-stage .clinic-browser--left,
+  .clinic-hero-stage .clinic-browser--mid,
   .clinic-hero-stage .clinic-browser--right {
     transform: none;
   }
