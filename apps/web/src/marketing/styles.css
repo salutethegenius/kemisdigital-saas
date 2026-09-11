@@ -1775,6 +1775,14 @@ body.clinic-page .nav-cta:focus-visible {
     opacity 0.7s ease,
     box-shadow 0.7s ease;
 }
+.clinic-hero-stage .clinic-browser--back {
+  width: 38%;
+  top: 6%;
+  left: 18%;
+  z-index: 0;
+  transform: rotate(-1.2deg) scale(0.9);
+  opacity: 0.72;
+}
 .clinic-hero-stage .clinic-browser--left {
   width: 42%;
   top: 16%;
@@ -1955,6 +1963,13 @@ body.clinic-page .nav-cta:focus-visible {
     grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
     gap: 28px 32px;
   }
+  .clinic-hero-stage .clinic-browser--back {
+    width: 36%;
+    top: 8%;
+    left: 22%;
+    transform: none;
+    opacity: 0.45;
+  }
   .clinic-hero-stage .clinic-browser--left {
     width: 44%;
     top: 20%;
@@ -2000,6 +2015,7 @@ body.clinic-page .nav-cta:focus-visible {
   .clinic-hero-stage .clinic-browser--left,
   .clinic-hero-stage .clinic-browser--mid,
   .clinic-hero-stage .clinic-browser--right,
+  .clinic-hero-stage .clinic-browser--back,
   .clinic-hero-stage .clinic-browser--fore {
     width: 100%;
     left: 0;
@@ -2055,7 +2071,8 @@ body.clinic-page .nav-cta:focus-visible {
   }
   .clinic-hero-stage .clinic-browser--left,
   .clinic-hero-stage .clinic-browser--mid,
-  .clinic-hero-stage .clinic-browser--right {
+  .clinic-hero-stage .clinic-browser--right,
+  .clinic-hero-stage .clinic-browser--back {
     transform: none;
   }
 }

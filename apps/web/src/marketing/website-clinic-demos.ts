@@ -12,6 +12,7 @@ export const WEBSITE_CLINIC_DEMO_IDS = [
   "castaways-resort",
   "ocean-reef",
   "betty-k",
+  "bmes",
 ] as const;
 
 export type WebsiteClinicDemoId = (typeof WEBSITE_CLINIC_DEMO_IDS)[number];
@@ -96,12 +97,28 @@ export const WEBSITE_CLINIC_DEMOS: readonly WebsiteClinicDemo[] = [
     previewWidth: WEBSITE_CLINIC_PREVIEW_SIZE.width,
     previewHeight: WEBSITE_CLINIC_PREVIEW_SIZE.height,
   },
+  {
+    id: "bmes",
+    businessName: "Bishop Michael Eldon School",
+    industryLabel: "Schools & education",
+    description:
+      "Help families explore admissions, school life and parent resources in one place.",
+    demoUrl: "https://demo-bmes.vercel.app/",
+    previewImage: `${PREVIEW_DIR}/bmes.jpg`,
+    previewAlt:
+      "Bishop Michael Eldon School website concept showing admissions, learning pathways and parent resources.",
+    previewPosition: "top center",
+    formIndustryValue: "Schools & education",
+    previewWidth: WEBSITE_CLINIC_PREVIEW_SIZE.width,
+    previewHeight: WEBSITE_CLINIC_PREVIEW_SIZE.height,
+  },
 ];
 
 const HERO_FOREGROUND_ID: WebsiteClinicDemoId = "ocean-reef";
 const HERO_REAR_LEFT_ID: WebsiteClinicDemoId = "budget-pest-control";
 const HERO_REAR_MID_ID: WebsiteClinicDemoId = "castaways-resort";
 const HERO_REAR_RIGHT_ID: WebsiteClinicDemoId = "betty-k";
+const HERO_REAR_BACK_ID: WebsiteClinicDemoId = "bmes";
 
 function escapeHtml(value: string): string {
   return value
@@ -181,10 +198,20 @@ export function renderHeroDemoPreview(): string {
   const rearLeft = demoById(HERO_REAR_LEFT_ID);
   const rearMid = demoById(HERO_REAR_MID_ID);
   const rearRight = demoById(HERO_REAR_RIGHT_ID);
+  const rearBack = demoById(HERO_REAR_BACK_ID);
   const heroSizes = "(min-width: 900px) 38vw, 100vw";
 
   return `<a class="clinic-hero-preview" href="#website-demos" aria-label="Explore the website demos">
       <div class="clinic-hero-stage" aria-hidden="true">
+        ${browserFrame(
+          previewImg(rearBack, {
+            alt: "",
+            loading: "eager",
+            sizes: heroSizes,
+          }),
+          "clinic-browser--rear clinic-browser--back",
+          ' data-hero-card="4"',
+        )}
         ${browserFrame(
           previewImg(rearLeft, {
             alt: "",
@@ -232,7 +259,7 @@ export function renderWebsiteDemosSection(): string {
   <div class="clinic-section-head">
     <div class="section-label">Working website concepts</div>
     <h2 class="section-title">See what your next website could look like.</h2>
-    <p class="clinic-lead">Explore four working redesign concepts built around Bahamian businesses. See how clearer information, better presentation and easier enquiries can work for your industry.</p>
+    <p class="clinic-lead">Explore five working redesign concepts built around Bahamian businesses. See how clearer information, better presentation and easier enquiries can work for your industry.</p>
   </div>
   <div class="clinic-demo-grid">
     ${cards}

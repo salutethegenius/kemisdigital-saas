@@ -7,7 +7,7 @@
   if (!preview || !stage || cards.length < 2) return;
 
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const slots = ['fore', 'left', 'mid', 'right'];
+  const slots = ['fore', 'left', 'mid', 'right', 'back'];
   const slotClasses = slots.map((slot) => `clinic-browser--${slot}`);
   const pauseReasons = new Set();
   let front = 0;
